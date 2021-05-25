@@ -1,6 +1,7 @@
 package june_11;
 
 import java.awt.EventQueue;
+import java.awt.SystemColor;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -28,7 +29,7 @@ import java.awt.Color;
 
 public class SortFile {
 
-	private JFrame frame;
+	public static JFrame frame;
 	private ArrayList<String> originalList = new ArrayList<>();
 	private ArrayList<String> outputList;
 	private JLabel fileLabel;
@@ -68,7 +69,7 @@ public class SortFile {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBackground(Color.WHITE);
+		frame.getContentPane().setBackground(SystemColor.inactiveCaptionBorder);
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
