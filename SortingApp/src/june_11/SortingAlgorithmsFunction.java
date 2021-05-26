@@ -1,19 +1,28 @@
 package june_11;
 
 import java.awt.*;
+import java.awt.Graphics;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.util.*;
 
 public class SortingAlgorithmsFunction extends JFrame {
-
-	public void rectangle (int x, int y, int length, int width, Graphics g) {
-		g.setColor(Color.ORANGE);
-		g.fillRect(x, y, length, width);
+	
+	public static void drawBars (int numberOfBars, int width) {
+		JLabel [] bars = new JLabel [numberOfBars];
+		for (int m = 0; m < numberOfBars; m++) {
+			bars[m] = new JLabel ("");
+			bars[m].setOpaque(true);
+			bars[m].setBackground(Color.ORANGE);
+			int height = (int)(Math.random() * 200);
+			bars[m].setBounds((m*(20+width)+100), (400 - height), width, height);
+			contentPane.add(bars[m]);
+		}
 	}
 	
 	private static JPanel contentPane;
 	public static ArrayList<Integer> barsHeight = new ArrayList<Integer>();
+	public static int numBars = 10;
 
 	/**
 	 * Launch the application.
@@ -43,8 +52,6 @@ public class SortingAlgorithmsFunction extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		contentPane.repaint();
-		rectangle (300, 300, 200, 50, getGraphics());
+		drawBars(numBars,(600 - 20 * (numBars - 1))/numBars);
 	}
-
 }
