@@ -61,6 +61,13 @@ public class MainMenu {
 		frame.getContentPane().add(functionOneButton);
 		
 		JButton functionTwoButton = new JButton("Sorting Algorithms");
+		functionTwoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SortingAlgorithmsFunction functionTwo = new SortingAlgorithmsFunction ();
+				functionTwo.setVisible(true);
+				frame.setVisible(false);
+			}
+		});
 		functionTwoButton.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
 		functionTwoButton.setBounds(300, 300, 200, 50);
 		frame.getContentPane().add(functionTwoButton);
