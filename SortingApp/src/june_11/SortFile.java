@@ -263,7 +263,6 @@ public class SortFile {
 		doubleRdBtn = new JRadioButton("Double");
 		doubleRdBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				clearTA(outputTextArea);
 				if (doubleRdBtn.isSelected()) {
 					stringRdBtn.setSelected(false);
 					intRdBtn.setSelected(false);
@@ -277,7 +276,6 @@ public class SortFile {
 		stringRdBtn.setBounds(475, 64, 319, 23);
 		stringRdBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				clearTA(outputTextArea);
 				if (stringRdBtn.isSelected()) {
 					doubleRdBtn.setSelected(false);
 					intRdBtn.setSelected(false);
@@ -290,7 +288,6 @@ public class SortFile {
 		intRdBtn.setBounds(346, 64, 114, 23);
 		intRdBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				clearTA(outputTextArea);
 				if (intRdBtn.isSelected()) {
 					doubleRdBtn.setSelected(false);
 					stringRdBtn.setSelected(false);
