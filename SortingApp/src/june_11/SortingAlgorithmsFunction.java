@@ -1,57 +1,70 @@
 package june_11;
 
 import java.awt.*;
-import java.awt.Graphics;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.util.*;
 
-public class SortingAlgorithmsFunction extends JFrame {
+public class SortingAlgorithmsFunction {
 	
-	public static void drawBars (int numberOfBars, int width) {
-		JLabel [] bars = new JLabel [numberOfBars];
-		for (int m = 0; m < numberOfBars; m++) {
-			bars[m] = new JLabel ("");
-			bars[m].setOpaque(true);
-			bars[m].setBackground(Color.ORANGE);
-			int height = (int)(Math.random() * 200);
-			bars[m].setBounds((m*(20+width)+100), (400 - height), width, height);
-			contentPane.add(bars[m]);
-		}
-	}
+	public static int numBars = 5;
+	public static int [] barsHeight = new int [numBars];
+	public static int [] barsHeightCopy = barsHeight;
+	public static JFrame frame;
 	
-	private static JPanel contentPane;
-	public static ArrayList<Integer> barsHeight = new ArrayList<Integer>();
-	public static int numBars = 10;
-
 	/**
-	 * Launch the application.
+	 * Sorts a List in ascending order (lowest to highest) using the bubble sort
+	 * algorithm
+	 * @param list the List to sort
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+	private static void bubbleSort(DrawShape object)
+	{
+		int swaps;
+		int copy;
+		int turn = 0;
+		do {
+			swaps = 0;
+			for (int i = 0; i < (numBars - turn - 1); i++) {
 				try {
-					SortingAlgorithmsFunction frame = new SortingAlgorithmsFunction();
-					frame.setVisible(true);
-				} catch (Exception e) {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				if (barsHeight[i + 1] < barsHeight[i]) {
+					copy = barsHeightCopy[i];
+					barsHeight[i] = barsHeight[i+1];
+					barsHeight[i+1] = copy;
+					barsHeightCopy = barsHeight;
+					object.heightOfBars = barsHeight;
+					object.drawing();
+					swaps++;     //counting swaps
+				}
 			}
-		});
+			turn++;
+		} while (swaps != 0);     //when there was no swap, it means that it's sorted
+	}
+	
+	public static int[] generateArray(int numBars){
+		int[] barsHeight = new int[numBars];
+		for (int m = 0; m < numBars; m++) {
+			barsHeight [m] = (int)(Math.random() * 200) + 10;
+			System.out.println(barsHeight[m]);
+		}
+		return barsHeight;
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public SortingAlgorithmsFunction() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
-		contentPane = new JPanel();
-		contentPane.setBackground(SystemColor.inactiveCaptionBorder);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+	public static void main(String[] args) {
+		frame = new JFrame ("Sorting Algorithms");
+		frame.setVisible(true);
+		frame.setBounds(100, 100, 800, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		drawBars(numBars,(600 - 20 * (numBars - 1))/numBars);
+		barsHeight = generateArray(numBars);
+		//is this ok?
+		DrawShape object = new DrawShape(numBars, barsHeight);
+		frame.add(object);
+		object.drawing();
+		bubbleSort(object);
 	}
 }
