@@ -51,6 +51,7 @@ public class SortingAlgorithmsFunction {
 			barsHeight [m] = (int)(Math.random() * 200) + 10;
 			System.out.println(barsHeight[m]);
 		}
+		barsHeightCopy = barsHeight;
 		return barsHeight;
 	}
 
