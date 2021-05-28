@@ -23,6 +23,7 @@ public class DrawShape extends JPanel {
 	public void paintComponent (Graphics g) {
 		super.paintComponents(g);
 		
+		g.clearRect(0, 0, 800, 600);
 		g.setColor(Color.RED);
 		int emptySpace = 600 / (4 * numberOfBars - 1);
 		int width = 3 * emptySpace;

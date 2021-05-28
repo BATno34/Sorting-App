@@ -1,7 +1,6 @@
 package june_11;
 
 import java.awt.*;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.util.*;
@@ -37,7 +36,6 @@ public class TestObject {
 					barsHeight[i+1] = copy;
 					barsHeightCopy = barsHeight;
 					object.heightOfBars = barsHeight;
-					System.out.println("array");
 					object.drawing();
 					swaps++;     //counting swaps
 				}
