@@ -64,7 +64,7 @@ public class MainMenu {
 		functionTwoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SortingAlgorithmsFunction functionTwo = new SortingAlgorithmsFunction ();
-				functionTwo.frame.setVisible(true);
+				functionTwo.setVisible(true);
 				frame.setVisible(false);
 			}
 		});

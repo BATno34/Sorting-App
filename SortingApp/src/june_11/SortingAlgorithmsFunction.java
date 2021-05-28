@@ -1,83 +1,78 @@
 package june_11;
 
 import java.awt.*;
+import java.awt.Graphics;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.util.*;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
-public class SortingAlgorithmsFunction {
+public class SortingAlgorithmsFunction extends JFrame {
+	JLabel lblBars = new JLabel();
+	JSlider slider;
 	
-	public static int numBars = 5;
-	public static int [] barsHeight = new int [numBars];
-	public static int [] barsHeightCopy = barsHeight;
-	public static JFrame frame = new JFrame ("Sorting Algorithms");
-	
-	/**
-	 * Sorts a List in ascending order (lowest to highest) using the bubble sort
-	 * algorithm
-	 * @param list the List to sort
-	 */
-	private static void bubbleSort(DrawShape object)
-	{
-		int swaps;
-		int copy;
-		int turn = 0;
-		do {
-			swaps = 0;
-			for (int i = 0; i < (numBars - turn - 1); i++) {
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				if (barsHeight[i + 1] < barsHeight[i]) {
-					copy = barsHeightCopy[i];
-					barsHeight[i] = barsHeight[i+1];
-					barsHeight[i+1] = copy;
-					barsHeightCopy = barsHeight;
-					object.heightOfBars = barsHeight;
-					object.drawing();
-					swaps++;     //counting swaps
-				}
-			}
-			turn++;
-		} while (swaps != 0);     //when there was no swap, it means that it's sorted
-	}
-	
-	public static int[] generateArray(int numBars){
-		int[] barsHeight = new int[numBars];
-		for (int m = 0; m < numBars; m++) {
-			barsHeight [m] = (int)(Math.random() * 200) + 10;
-			System.out.println(barsHeight[m]);
+	public static void drawBars (int numberOfBars, int width) {
+		JLabel [] bars = new JLabel [numberOfBars];
+		for (int m = 0; m < numberOfBars; m++) {
+			bars[m] = new JLabel ("");
+			bars[m].setOpaque(true);
+			bars[m].setBackground(Color.ORANGE);
+			int height = (int)(Math.random() * 200);
+			bars[m].setBounds((m*(20+width)+100), (400 - height), width, height);
+			contentPane.add(bars[m]);
 		}
-		barsHeightCopy = barsHeight;
-		return barsHeight;
 	}
+	
+	private static JPanel contentPane;
+	public static ArrayList<Integer> barsHeight = new ArrayList<Integer>();
+	public static int numBars = 10;
 
-	public SortingAlgorithmsFunction(){
-		frame.setVisible(true);
-		frame.setBounds(100, 100, 800, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		barsHeight = generateArray(numBars);
-		//is this ok?
-		DrawShape object = new DrawShape(numBars, barsHeight);
-		frame.add(object);
-		object.drawing();
-		bubbleSort(object);
-	}
-
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SortingAlgorithmsFunction sortFrame = new SortingAlgorithmsFunction();
-					sortFrame.frame.setVisible(true);
+					SortingAlgorithmsFunction frame = new SortingAlgorithmsFunction();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public SortingAlgorithmsFunction() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 600);
+		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.inactiveCaptionBorder);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		slider = new JSlider();
+		slider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				int numBars = slider.getValue();
+				lblBars.setText("Bars: "+numBars);
+				drawBars(numBars, 600/numBars);
+			}
+		});
+		slider.setValue(28);
+		slider.setMajorTickSpacing(1);
+		slider.setMaximum(50);
+		slider.setMinimum(5);
+		slider.setBounds(10, 11, 521, 26);
+		contentPane.add(slider);
+		
+		lblBars.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		lblBars.setBounds(541, 6, 200, 31);
+		contentPane.add(lblBars);
 	}
 }
