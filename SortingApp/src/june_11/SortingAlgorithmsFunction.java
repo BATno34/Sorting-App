@@ -10,7 +10,7 @@ public class SortingAlgorithmsFunction {
 	public static int numBars = 5;
 	public static int [] barsHeight = new int [numBars];
 	public static int [] barsHeightCopy = barsHeight;
-	public static JFrame frame;
+	public static JFrame frame = new JFrame ("Sorting Algorithms");
 	
 	/**
 	 * Sorts a List in ascending order (lowest to highest) using the bubble sort
@@ -55,17 +55,29 @@ public class SortingAlgorithmsFunction {
 		return barsHeight;
 	}
 
-	public static void main(String[] args) {
-		frame = new JFrame ("Sorting Algorithms");
+	public SortingAlgorithmsFunction(){
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		barsHeight = generateArray(numBars);
 		//is this ok?
 		DrawShape object = new DrawShape(numBars, barsHeight);
 		frame.add(object);
 		object.drawing();
 		bubbleSort(object);
+	}
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SortingAlgorithmsFunction sortFrame = new SortingAlgorithmsFunction();
+					sortFrame.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }
