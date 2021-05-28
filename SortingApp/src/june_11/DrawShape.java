@@ -8,11 +8,11 @@ import javax.swing.JPanel;
 public class DrawShape extends JPanel {
 	
 	public static int numberOfBars;
-	public static int [] barsHeight;
+	public static int [] heightOfBars;
 	
 	public DrawShape (int numberOfBars, int [] barsHeight) {
 		this.numberOfBars = numberOfBars;
-		this.barsHeight = barsHeight;
+		this.heightOfBars = barsHeight;
 		
 	}
 	
@@ -24,10 +24,11 @@ public class DrawShape extends JPanel {
 		super.paintComponents(g);
 		
 		g.setColor(Color.RED);
-		int width = (600 - 20 * (numberOfBars - 1))/numberOfBars;
+		int emptySpace = 600 / (4 * numberOfBars - 1);
+		int width = 3 * emptySpace;
 		
 		for (int m = 0; m < numberOfBars; m++) {
-			g.fillRect((m*(20+width)+100), (400 - barsHeight[m]), width, barsHeight[m]);
+			g.fillRect((m*(emptySpace+width)+100), (400 - heightOfBars[m]), width, heightOfBars[m]);
 		}
 		
 		
