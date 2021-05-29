@@ -9,19 +9,33 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
 public class SortingAlgorithmsFunction extends JFrame {
-	JLabel lblBars = new JLabel();
-	JSlider slider;
+	private JLabel lblBars = new JLabel();
+	private JSlider slider;
 	
-	public static void drawBars (int numberOfBars, int width) {
-		JLabel [] bars = new JLabel [numberOfBars];
+	public JLabel[] bars = new JLabel[28];
+	
+	public static JLabel[] drawBars (JLabel[] bars, int numberOfBars, int width) {
+		if(bars[0] != null) {
+			Container parent = bars[0].getParent();
+			for(int i = 0; i < bars.length; i++) {
+				parent = bars[i].getParent();
+				parent.remove(bars[i]);
+				parent.validate();
+			}
+			parent.repaint();
+		}
+		
+		bars = new JLabel [numberOfBars];
 		for (int m = 0; m < numberOfBars; m++) {
 			bars[m] = new JLabel ("");
 			bars[m].setOpaque(true);
 			bars[m].setBackground(Color.ORANGE);
 			int height = (int)(Math.random() * 200);
-			bars[m].setBounds((m*(20+width)+100), (400 - height), width, height);
+			bars[m].setBounds((m*(2+width)+(800-(numberOfBars*(width+2)))/2), (400 - height), width, height);
 			contentPane.add(bars[m]);
 		}
+		
+		return bars;
 	}
 	
 	private static JPanel contentPane;
@@ -56,12 +70,15 @@ public class SortingAlgorithmsFunction extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		
+		
 		slider = new JSlider();
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				int numBars = slider.getValue();
 				lblBars.setText("Bars: "+numBars);
-				drawBars(numBars, 600/numBars);
+				
+				bars = drawBars(bars, numBars, (600/numBars));
 			}
 		});
 		slider.setValue(28);
