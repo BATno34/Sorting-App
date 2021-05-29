@@ -7,14 +7,21 @@ import javax.swing.border.EmptyBorder;
 import java.util.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SortingAlgorithmsFunction extends JFrame {
+	
 	private JLabel lblBars = new JLabel();
 	private JSlider slider;
+	private static JPanel contentPane;
+	public static int numBars = 10;
+	public static int width;
+	public static JLabel[] bars = new JLabel[28];
+	public static int [] barsHeight;
+	public static int [] barsHeightCopy;
 	
-	public JLabel[] bars = new JLabel[28];
-	
-	public static JLabel[] drawBars (JLabel[] bars, int numberOfBars, int width) {
+	public static JLabel[] drawBars () {
 		if(bars[0] != null) {
 			Container parent = bars[0].getParent();
 			for(int i = 0; i < bars.length; i++) {
@@ -25,22 +32,40 @@ public class SortingAlgorithmsFunction extends JFrame {
 			parent.repaint();
 		}
 		
-		bars = new JLabel [numberOfBars];
-		for (int m = 0; m < numberOfBars; m++) {
+		bars = new JLabel [numBars];
+		barsHeight = new int [numBars];
+		barsHeightCopy = new int [numBars];
+		for (int m = 0; m < numBars; m++) {
 			bars[m] = new JLabel ("");
 			bars[m].setOpaque(true);
 			bars[m].setBackground(Color.ORANGE);
-			int height = (int)(Math.random() * 200);
-			bars[m].setBounds((m*(2+width)+(800-(numberOfBars*(width+2)))/2), (400 - height), width, height);
+			int height = (int)(Math.random() * 200) + 20;
+			barsHeight[m] = height;
+			barsHeightCopy[m] = height;
+			bars[m].setBounds((m*(2+width)+(800-(numBars*(width+2)))/2), (400 - height), width, height);
 			contentPane.add(bars[m]);
 		}
 		
 		return bars;
 	}
 	
-	private static JPanel contentPane;
-	public static ArrayList<Integer> barsHeight = new ArrayList<Integer>();
-	public static int numBars = 10;
+	public static void drawSortedBars () {
+		Container parent = bars[0].getParent();
+		for(int i = 0; i < bars.length; i++) {
+			parent = bars[i].getParent();
+			parent.remove(bars[i]);
+			parent.validate();
+		}
+		parent.repaint();
+		
+		for (int m = 0; m < numBars; m++) {
+			bars[m] = new JLabel ("");
+			bars[m].setOpaque(true);
+			bars[m].setBackground(Color.ORANGE);
+			bars[m].setBounds((m*(2+width)+(800-(numBars*(width+2)))/2), (400 - barsHeight[m]), width, barsHeight[m]);
+			contentPane.add(bars[m]);
+		}
+	}
 
 	/**
 	 * Launch the application.
@@ -75,10 +100,10 @@ public class SortingAlgorithmsFunction extends JFrame {
 		slider = new JSlider();
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				int numBars = slider.getValue();
+				numBars = slider.getValue();
 				lblBars.setText("Bars: "+numBars);
-				
-				bars = drawBars(bars, numBars, (600/numBars));
+				width = 600 / numBars;
+				bars = drawBars();
 			}
 		});
 		slider.setValue(28);
@@ -91,5 +116,47 @@ public class SortingAlgorithmsFunction extends JFrame {
 		lblBars.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		lblBars.setBounds(541, 6, 200, 31);
 		contentPane.add(lblBars);
+		
+		JButton sortButton = new JButton("Sort");
+		sortButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				bubbleSort();
+			}
+		});
+		sortButton.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
+		sortButton.setBounds(610, 48, 91, 23);
+		contentPane.add(sortButton);
+	}
+	
+	/**
+	 * Sorts a List in ascending order (lowest to highest) using the bubble sort
+	 * algorithm
+	 * @param list the List to sort
+	 */
+	public static void bubbleSort()
+	{
+		int swaps;
+		int copy;
+		int turn = 0;
+		do {
+			swaps = 0;
+			for (int i = 0; i < (numBars - turn - 1); i++) {
+				//try {
+					//Thread.sleep(1000);
+				//} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				//}
+				if (barsHeight[i+1] < barsHeight[i]) {
+					copy = barsHeightCopy[i];
+					barsHeight[i] = barsHeight[i+1];
+					barsHeight[i+1] = copy;
+					barsHeightCopy = barsHeight;
+					drawSortedBars();
+					swaps++;     //counting swaps
+				}
+			}
+			turn++;
+		} while (swaps != 0);     //when there was no swap, it means that it's sorted
 	}
 }

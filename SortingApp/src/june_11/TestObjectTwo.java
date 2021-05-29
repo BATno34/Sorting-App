@@ -5,9 +5,9 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.util.*;
 
-public class TestObject {
-	
-	public static JFrame frame = new JFrame ("Test Object");
+public class TestObjectTwo {
+
+	private JFrame frame;
 	public static int numBars = 5;
 	public static int [] barsHeight = new int [numBars];
 	public static int [] barsHeightCopy = barsHeight;
@@ -17,7 +17,7 @@ public class TestObject {
 	 * algorithm
 	 * @param list the List to sort
 	 */
-	public static void bubbleSort(DrawShape object)
+	private static void bubbleSort(DrawShape object)
 	{
 		int swaps;
 		int copy;
@@ -44,10 +44,35 @@ public class TestObject {
 			turn++;
 		} while (swaps != 0);     //when there was no swap, it means that it's sorted
 	}
-	
-	public static void main (String [] args) {
-		//frame = new JFrame ("Test Object");
-		frame.setVisible(true);
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		//EventQueue.invokeLater(new Runnable() {
+			//public void run() {
+				try {
+					TestObjectTwo window = new TestObjectTwo();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			//}
+		//});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public TestObjectTwo() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame("Test Object TWo");
 		frame.getContentPane().setBackground(SystemColor.inactiveCaptionBorder);
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
