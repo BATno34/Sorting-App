@@ -1,11 +1,9 @@
 package june_11;
-
 import java.awt.*;
-import java.awt.Graphics;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.util.*;
 import javax.swing.event.ChangeListener;
+
 import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -56,7 +54,6 @@ public class SortingAlgorithmsFunction extends JFrame {
 			parent.remove(bars[i]);
 			parent.validate();
 		}
-		parent.repaint();
 		
 		for (int m = 0; m < numBars; m++) {
 			bars[m] = new JLabel ("");
@@ -65,6 +62,9 @@ public class SortingAlgorithmsFunction extends JFrame {
 			bars[m].setBounds((m*(2+width)+(800-(numBars*(width+2)))/2), (400 - barsHeight[m]), width, barsHeight[m]);
 			contentPane.add(bars[m]);
 		}
+	
+        parent.repaint();
+        parent.validate();
 	}
 
 	/**
@@ -94,8 +94,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		
+
 		
 		slider = new JSlider();
 		slider.addChangeListener(new ChangeListener() {
@@ -120,43 +119,14 @@ public class SortingAlgorithmsFunction extends JFrame {
 		JButton sortButton = new JButton("Sort");
 		sortButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				bubbleSort();
+				Thread sortingThread = new Thread(new BubbleSort(bars, barsHeight));
+				sortingThread.start();
 			}
 		});
 		sortButton.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
 		sortButton.setBounds(610, 48, 91, 23);
 		contentPane.add(sortButton);
-	}
-	
-	/**
-	 * Sorts a List in ascending order (lowest to highest) using the bubble sort
-	 * algorithm
-	 * @param list the List to sort
-	 */
-	public static void bubbleSort()
-	{
-		int swaps;
-		int copy;
-		int turn = 0;
-		do {
-			swaps = 0;
-			for (int i = 0; i < (numBars - turn - 1); i++) {
-				//try {
-					//Thread.sleep(1000);
-				//} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					//e.printStackTrace();
-				//}
-				if (barsHeight[i+1] < barsHeight[i]) {
-					copy = barsHeightCopy[i];
-					barsHeight[i] = barsHeight[i+1];
-					barsHeight[i+1] = copy;
-					barsHeightCopy = barsHeight;
-					drawSortedBars();
-					swaps++;     //counting swaps
-				}
-			}
-			turn++;
-		} while (swaps != 0);     //when there was no swap, it means that it's sorted
+		
+		
 	}
 }
