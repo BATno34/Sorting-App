@@ -47,7 +47,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		return bars;
 	}
 	
-	public static void drawSortedBars () {
+	public static void drawSortedBars (int comparingBar) {
 		Container parent = bars[0].getParent();
 		for(int i = 0; i < bars.length; i++) {
 			parent = bars[i].getParent();
@@ -55,10 +55,13 @@ public class SortingAlgorithmsFunction extends JFrame {
 			parent.validate();
 		}
 		
-		for (int m = 0; m < numBars; m++) {
+		for (int m = 0; m < (numBars); m++) {
 			bars[m] = new JLabel ("");
 			bars[m].setOpaque(true);
-			bars[m].setBackground(Color.ORANGE);
+			if (m == comparingBar || m == comparingBar + 1)
+				bars[m].setBackground(Color.BLACK);
+			else
+				bars[m].setBackground(Color.ORANGE);
 			bars[m].setBounds((m*(2+width)+(800-(numBars*(width+2)))/2), (400 - barsHeight[m]), width, barsHeight[m]);
 			contentPane.add(bars[m]);
 		}

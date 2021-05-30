@@ -25,12 +25,12 @@ public class BubbleSort implements Runnable{
 		do {
 			swaps = 0;
 	    	for (int i = 0; i < (barsHeight.length - turn - 1); i++) {
-				if (barsHeight[i+1] < barsHeight[i]) {							
+	    		if (barsHeight[i+1] < barsHeight[i]) {							
 					copy = barsHeightCopy[i];
 					barsHeight[i] = barsHeight[i+1];
 					barsHeight[i+1] = copy;
 					barsHeightCopy = barsHeight;					
-					SortingAlgorithmsFunction.drawSortedBars();
+					SortingAlgorithmsFunction.drawSortedBars(i);
 					try {
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
