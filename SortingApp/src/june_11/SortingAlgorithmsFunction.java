@@ -55,7 +55,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 			parent.validate();
 		}
 		
-		for (int m = 0; m < (numBars); m++) {
+		for (int m = 0; m < numBars; m++) {
 			bars[m] = new JLabel ("");
 			bars[m].setOpaque(true);
 			if (m == comparingBar || m == comparingBar + 1)
