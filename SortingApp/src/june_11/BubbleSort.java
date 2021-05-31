@@ -1,5 +1,6 @@
 package june_11;
 
+import java.util.*;
 import javax.swing.JLabel;
 
 public class BubbleSort implements Runnable{
@@ -29,8 +30,11 @@ public class BubbleSort implements Runnable{
 					copy = barsHeightCopy[i];
 					barsHeight[i] = barsHeight[i+1];
 					barsHeight[i+1] = copy;
-					barsHeightCopy = barsHeight;					
-					SortingAlgorithmsFunction.drawSortedBars(i);
+					barsHeightCopy = barsHeight;
+					ArrayList<Integer> importantIndexes = new ArrayList<Integer>(2);
+					importantIndexes.add(i);
+					importantIndexes.add(i+1);					
+					SortingAlgorithmsFunction.drawSortedBars(importantIndexes);
 					try {
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
@@ -41,6 +45,8 @@ public class BubbleSort implements Runnable{
 			}
 			turn++;
 	    } while (swaps!=0);   //when there was no swap, it means that it's sorted
+
+		SortingAlgorithmsFunction.endOfSort();
 
 		System.out.println("Sort done");
 	}

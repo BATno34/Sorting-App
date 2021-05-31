@@ -1,4 +1,6 @@
 package june_11;
+
+import java.util.*;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -47,7 +49,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		return bars;
 	}
 	
-	public static void drawSortedBars (int comparingBar) {
+	public static void drawSortedBars (ArrayList<Integer> comparingBars) {
 		Container parent = bars[0].getParent();
 		for(int i = 0; i < bars.length; i++) {
 			parent = bars[i].getParent();
@@ -58,7 +60,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		for (int m = 0; m < numBars; m++) {
 			bars[m] = new JLabel ("");
 			bars[m].setOpaque(true);
-			if (m == comparingBar || m == comparingBar + 1)
+			if (comparingBars.indexOf(m) != -1)
 				bars[m].setBackground(Color.BLACK);
 			else
 				bars[m].setBackground(Color.ORANGE);
@@ -69,7 +71,21 @@ public class SortingAlgorithmsFunction extends JFrame {
         parent.repaint();
         parent.validate();
 	}
-
+	
+	public static void endOfSort(){
+		for(int i = 0; i<bars.length; i++) {
+			Container parent = bars[i].getParent();
+			bars[i].setBackground(Color.BLUE);
+			parent.repaint();
+			parent.validate();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	/**
 	 * Launch the application.
 	 */
@@ -85,7 +101,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
