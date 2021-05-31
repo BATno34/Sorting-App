@@ -2,6 +2,7 @@ package june_11;
 
 import java.util.*;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class BubbleSort implements Runnable{
 	public static JLabel[] bars;
@@ -23,6 +24,7 @@ public class BubbleSort implements Runnable{
 		int copy;
 		int turn = 0;
 		int[]barsHeightCopy = barsHeight;
+		ArrayList<Integer> sortedIndexes = new ArrayList<Integer>();
 		do {
 			swaps = 0;
 	    	for (int i = 0; i < (barsHeight.length - turn - 1); i++) {
@@ -33,8 +35,8 @@ public class BubbleSort implements Runnable{
 					barsHeightCopy = barsHeight;
 					ArrayList<Integer> importantIndexes = new ArrayList<Integer>(2);
 					importantIndexes.add(i);
-					importantIndexes.add(i+1);					
-					SortingAlgorithmsFunction.drawSortedBars(importantIndexes);
+					importantIndexes.add(i+1);
+					SortingAlgorithmsFunction.drawSortedBars(importantIndexes,sortedIndexes);
 					try {
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
@@ -43,14 +45,12 @@ public class BubbleSort implements Runnable{
 					swaps++;     //counting swaps
 				}
 			}
+	    	sortedIndexes.add(barsHeight.length - turn - 1);
 			turn++;
 	    } while (swaps!=0);   //when there was no swap, it means that it's sorted
-
 		SortingAlgorithmsFunction.endOfSort();
-
-		System.out.println("Sort done");
+		
+		JOptionPane.showMessageDialog(null, "Sorting complete!");
 	}
-	
 
 }
-
