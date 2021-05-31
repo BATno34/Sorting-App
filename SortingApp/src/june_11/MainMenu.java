@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 
 public class MainMenu {
 
-	private JFrame frame;
+	public static JFrame frame;
 
 	/**
 	 * Launch the application.
