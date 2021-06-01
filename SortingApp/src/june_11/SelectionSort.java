@@ -58,7 +58,7 @@ public class SelectionSort implements Runnable{
 				e.printStackTrace();
 			}
             SortingAlgorithmsFunction.drawSortedBars(comparingBars, sortedList);
-            
+            //nothing
         }
         
 		SortingAlgorithmsFunction.endOfSort();
