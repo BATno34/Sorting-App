@@ -28,23 +28,22 @@ public class SelectionSort implements Runnable{
         {
             // Find the minimum element in unsorted array
             int min_idx = i;
+            comparingBars.add(i);
             for (int j = i+1; j < n; j++) {
                 if (barsHeight[j] < barsHeight[min_idx]) {
                 	try { 
-                		Thread.sleep(100);
+                		Thread.sleep(500);
     				} catch (InterruptedException e) {
     					e.printStackTrace();
     				}
-                	//comparingBars.add(j);
-                	//comparingBars.add(min_idx);
-                	SortingAlgorithmsFunction.drawSortedBars(comparingBars, sortedList);
                     min_idx = j;
-                    //comparingBars.remove(comparingBars.indexOf(j));
-                    //comparingBars.remove(comparingBars.indexOf(min_idx));
+                    comparingBars.add(min_idx);
+                	SortingAlgorithmsFunction.drawSortedBars(comparingBars, sortedList);
+                	comparingBars.remove(comparingBars.indexOf(min_idx));
                 }
                 
             }
-            //comparingBars.remove(comparingBars.indexOf(min_idx));
+            
   
             // Swap the found minimum element with the first
             // element
@@ -52,8 +51,9 @@ public class SelectionSort implements Runnable{
             barsHeight[min_idx] = barsHeight[i];
             barsHeight[i] = temp;
             sortedList.add(i);
+            comparingBars.remove(comparingBars.indexOf(i));
             try { 
-        		Thread.sleep(100);
+        		Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
