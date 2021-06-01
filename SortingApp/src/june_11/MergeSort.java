@@ -58,9 +58,17 @@ public class MergeSort implements Runnable {
 		j = lo;
 
 		while(i < mergedSorted.size()) {
-			important.add(i);
+			int temp = mergedSorted.get(i);
+			int switchingIndex = 0;
+			for(int k = 0; k < barsHeight.length; k++) {
+				if(temp == barsHeight[k]) {
+					important.add(k);
+					switchingIndex = k;
+				}
+			}
 			important.add(j);
 			
+			barsHeight[switchingIndex] = barsHeight[j];
 			barsHeight[j] = mergedSorted.get(i);
 			SortingAlgorithmsFunction.drawSortedBars(important,sorted);
 			 try {
@@ -68,6 +76,8 @@ public class MergeSort implements Runnable {
 			 } catch (InterruptedException e) {
 				 e.printStackTrace();
 		   	 }
+			important.clear();
+			sorted.add(j);
 			
 			i++;
 			j++;
@@ -95,25 +105,8 @@ public class MergeSort implements Runnable {
 			
 			//sort first and second halves
 			mergeSort(lo, mid);
-			important.add(lo);
-			important.add(mid);
-			SortingAlgorithmsFunction.drawSortedBars(important,sorted);
-			 try {
-				 Thread.sleep(100);
-			 } catch (InterruptedException e) {
-				 e.printStackTrace();
-		   	 }
-			 important.clear();
 			 
 			mergeSort(mid+1, hi);
-			important.add(mid+1);
-			important.add(hi);
-			SortingAlgorithmsFunction.drawSortedBars(important,sorted);
-			 try {
-				 Thread.sleep(100);
-			 } catch (InterruptedException e) {
-				 e.printStackTrace();
-		   	 }
 			 
 			//merge the sorted halves
 			merge(lo, mid, hi);
