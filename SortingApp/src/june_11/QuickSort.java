@@ -19,13 +19,15 @@ public class QuickSort implements Runnable{
 	private void quickSort(int start, int end) {
 		int temp;
 		ArrayList<Integer> pivotIndex = new ArrayList<Integer>();
-		ArrayList<Integer> importantIndexes = new ArrayList<Integer>(2);
+		ArrayList<Integer> startEndIndexes = new ArrayList<Integer>(2);
 		//Take the middle element as pivot
 		int middle = start + (end - start) / 2;
 		int pivot = barsHeight[middle];
 		pivotIndex.add(middle);
-		//Make the left side of the pivot all numbers smaller than it
-		//and the right side all numbers larger than it
+		startEndIndexes.add(start);
+		startEndIndexes.add(end);
+		//Make the left side all numbers smaller than the pivot
+		//and the right side all numbers larger than the pivot
 		int i = start;
 		int j = end;
 		while (i <= j) {
@@ -36,19 +38,84 @@ public class QuickSort implements Runnable{
 				j--;
 			}
 			
-			importantIndexes.add(i);
-			importantIndexes.add(j);
-			SortingAlgorithmsFunction.drawSortedBars(importantIndexes,pivotIndex);
+			SortingAlgorithmsFunction.drawSortedBars(startEndIndexes,pivotIndex);
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			
-			//An element is positioned at the right side of the pivot
+			//If an element is positioned at the right side of the pivot
 			//but is smaller than the pivot is swapped with the element 
 			//one the left but larger than the pivot
 			if (i <= j) {
+				if (i == middle) {
+					pivotIndex.set(0, j);
+				} else if (j == middle) {
+					pivotIndex.set(0, i);
+				}
+				temp = barsHeight[i];
+				barsHeight[i] = barsHeight[j];
+				barsHeight[j] = temp;
+				i++;
+				j--;
+			}
+			
+			SortingAlgorithmsFunction.drawSortedBars(startEndIndexes,pivotIndex);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+ 
+		//recursively sort two sub parts
+		if (start < j) {
+			quickSort(start, j);
+		}
+		if (end > i) {
+			quickSort(i, end);
+		}
+	}
+	
+	private void quickSort2(int start, int end) {
+		int temp;
+		ArrayList<Integer> pivotIndex = new ArrayList<Integer>();
+		ArrayList<Integer> swappingIndexes = new ArrayList<Integer>(2);
+		//Take the middle element as pivot
+		int middle = start + (end - start) / 2;
+		int pivot = barsHeight[middle];
+		pivotIndex.add(middle);
+		//Make the left side all numbers smaller than the pivot
+		//and the right side all numbers larger than the pivot
+		int i = start;
+		int j = end;
+		while (i <= j) {
+			while (barsHeight[i] < pivot) {
+				i++;
+			}
+			while (barsHeight[j] > pivot) {
+				j--;
+			}
+			
+			swappingIndexes.add(i);
+			swappingIndexes.add(j);
+			SortingAlgorithmsFunction.drawSortedBars(swappingIndexes,pivotIndex);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			//If an element is positioned at the right side of the pivot
+			//but is smaller than the pivot is swapped with the element 
+			//one the left but larger than the pivot
+			if (i <= j) {
+				if (i == middle) {
+					pivotIndex.set(0, j);
+				} else if (j == middle) {
+					pivotIndex.set(0, i);
+				}
 				temp = barsHeight[i];
 				barsHeight[i] = barsHeight[j];
 				barsHeight[j] = temp;
@@ -57,10 +124,10 @@ public class QuickSort implements Runnable{
 				j--;
 			}
 			
-			importantIndexes.clear();
-			importantIndexes.add(i-1);
-			importantIndexes.add(j+1);
-			SortingAlgorithmsFunction.drawSortedBars(importantIndexes,pivotIndex);
+			swappingIndexes.clear();
+			swappingIndexes.add(i-1);
+			swappingIndexes.add(j+1);
+			SortingAlgorithmsFunction.drawSortedBars(swappingIndexes,pivotIndex);
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
