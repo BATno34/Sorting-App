@@ -64,10 +64,10 @@ public class SortingAlgorithmsFunction extends JFrame {
 		for (int m = 0; m < numBars; m++) {
 			bars[m] = new JLabel ("");
 			bars[m].setOpaque(true);
-			if (comparingBars.indexOf(m) != -1) {
-				bars[m].setBackground(Color.BLACK);
-			} else if (sortedBars.contains(m)){
+			if (sortedBars.contains(m)) {
 				bars[m].setBackground(Color.BLUE);
+			} else if (comparingBars.indexOf(m) != -1){
+				bars[m].setBackground(Color.BLACK);
 			} else {
 				bars[m].setBackground(Color.ORANGE);
 			}
