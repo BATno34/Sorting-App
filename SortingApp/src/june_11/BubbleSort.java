@@ -5,11 +5,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class BubbleSort implements Runnable{
-	public static JLabel[] bars;
 	public static int [] barsHeight;
 	
-	public BubbleSort(JLabel[] bars, int[] barsHeight) {
-		this.bars = bars;
+	public BubbleSort(int[] barsHeight) {
 		this.barsHeight = barsHeight;
 	}
 	

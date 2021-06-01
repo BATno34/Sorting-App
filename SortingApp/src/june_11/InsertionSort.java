@@ -7,11 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class InsertionSort implements Runnable{
-	public static JLabel[] bars;
 	public static int [] barsHeight;
 	
-	public InsertionSort(JLabel[] bars, int[] barsHeight) {
-		this.bars = bars;
+	public InsertionSort(int[] barsHeight) {
 		this.barsHeight = barsHeight;
 	}
 	

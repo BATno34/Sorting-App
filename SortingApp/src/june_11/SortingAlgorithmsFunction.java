@@ -156,9 +156,15 @@ public class SortingAlgorithmsFunction extends JFrame {
 				toReturn.setVisible(false);
 				Thread sortingThread = new Thread();
 				if (comboBox.getSelectedItem().toString().toUpperCase().equals("BUBBLE SORT"))
-					sortingThread = new Thread(new BubbleSort(bars, barsHeight));
+					sortingThread = new Thread(new BubbleSort(barsHeight));
 				if (comboBox.getSelectedItem().toString().toUpperCase().equals("INSERTION SORT"))
-					sortingThread = new Thread(new InsertionSort(bars, barsHeight));
+					sortingThread = new Thread(new InsertionSort(barsHeight));
+				if (comboBox.getSelectedItem().toString().toUpperCase().equals("MERGE SORT"))
+					sortingThread = new Thread(new MergeSort(barsHeight));
+				if (comboBox.getSelectedItem().toString().toUpperCase().equals("SELECTION SORT"))
+					sortingThread = new Thread(new SelectionSort(barsHeight));
+				if (comboBox.getSelectedItem().toString().toUpperCase().equals("QUICK SORT"))
+					sortingThread = new Thread(new QuickSort(barsHeight));
 				sortingThread.start();
 			}
 		});

@@ -6,17 +6,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class MergeSort implements Runnable {
-	public static JLabel[] bars;
 	public static int [] barsHeight;
 	
-	public MergeSort(JLabel[] bars, int[] barsHeight) {
-		this.bars = bars;
+	public MergeSort(int[] barsHeight) {
 		this.barsHeight = barsHeight;
 	}
 
 	@Override
 	public void run() {
-		mergeSort(0, bars.length-1);
+		mergeSort(0, barsHeight.length-1);
 	}
 
 	/**

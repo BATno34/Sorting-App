@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 
 public class QuickSort implements Runnable{
-	public static JLabel[] bars;
 	public static int [] barsHeight;
 	
-	public QuickSort(JLabel[] bars, int[] barsHeight) {
-		this.bars = bars;
+	public QuickSort(int[] barsHeight) {
 		this.barsHeight = barsHeight;
 	}
 	
