@@ -53,12 +53,8 @@ public class SortingAlgorithmsFunction extends JFrame {
 		return bars;
 	}
 	
+	
 	public static void drawSortedBars (ArrayList<Integer> comparingBars, ArrayList<Integer> sortedBars) {
-		ArrayList<Integer> emptyList = new ArrayList<Integer>();
-		drawSortedBars(comparingBars, sortedBars, emptyList);
-	}
-	public static void drawSortedBars (ArrayList<Integer> comparingBars, ArrayList<Integer> sortedBars, 
-									   ArrayList<Integer> startEndBars) {
 		Container parent = bars[0].getParent();
 		for(int i = 0; i < bars.length; i++) {
 			parent = bars[i].getParent();
@@ -73,8 +69,6 @@ public class SortingAlgorithmsFunction extends JFrame {
 				bars[m].setBackground(Color.BLUE);
 			} else if (comparingBars.indexOf(m) != -1){
 				bars[m].setBackground(Color.BLACK);
-			} else if (startEndBars.contains(m)){
-				bars[m].setBackground(Color.GREEN);
 			} else {
 				bars[m].setBackground(Color.ORANGE);
 			}
