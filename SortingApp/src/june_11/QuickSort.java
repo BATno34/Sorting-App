@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 public class QuickSort implements Runnable{
 	public static int [] barsHeight;
+	ArrayList<Integer> pivotIndex = new ArrayList<Integer>();
 	
 	public QuickSort(int[] barsHeight) {
 		this.barsHeight = barsHeight;
@@ -21,7 +22,6 @@ public class QuickSort implements Runnable{
 
 	private void quickSort(int start, int end) {
 		int temp;
-		ArrayList<Integer> pivotIndex = new ArrayList<Integer>();
 		ArrayList<Integer> startEndIndexes = new ArrayList<Integer>(2);
 		ArrayList<Integer> swappingIndexes = new ArrayList<Integer>(2);
 		//Take the middle element as pivot
@@ -56,10 +56,10 @@ public class QuickSort implements Runnable{
 			//but is smaller than the pivot is swapped with the element 
 			//one the left but larger than the pivot
 			if (i <= j) {
-				if (i == pivotIndex.get(0)) {
-					pivotIndex.set(0, j);
+				if (i == pivotIndex.get(pivotIndex.size()-1)) {
+					pivotIndex.set(pivotIndex.size()-1, j);
 				} else if (j == pivotIndex.get(0)) {
-					pivotIndex.set(0, i);
+					pivotIndex.set(pivotIndex.size()-1, i);
 				}
 				
 				temp = barsHeight[i];
