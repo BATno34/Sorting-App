@@ -59,13 +59,14 @@ public class MergeSort implements Runnable {
 
 		while(i < mergedSorted.size()) {
 			int temp = mergedSorted.get(i);
-			int switchingIndex = 0;
-			for(int k = 0; k < barsHeight.length; k++) {
+			int switchingIndex = -1;
+			for(int k = lo; k <= hi; k++) {
 				if(temp == barsHeight[k]) {
-					important.add(k);
 					switchingIndex = k;
 				}
 			}
+
+			important.add(switchingIndex);
 			important.add(j);
 			
 			barsHeight[switchingIndex] = barsHeight[j];
