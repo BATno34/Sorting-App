@@ -32,7 +32,7 @@ public class SelectionSort implements Runnable{
             for (int j = i+1; j < n; j++) {
                 if (barsHeight[j] < barsHeight[min_idx]) {
                 	try { 
-                		Thread.sleep(500);
+                		Thread.sleep((SortingAlgorithmsFunction.sortDelay));
     				} catch (InterruptedException e) {
     					e.printStackTrace();
     				}
@@ -53,7 +53,7 @@ public class SelectionSort implements Runnable{
             sortedList.add(i);
             comparingBars.remove(comparingBars.indexOf(i));
             try { 
-        		Thread.sleep(500);
+        		Thread.sleep(SortingAlgorithmsFunction.sortDelay);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

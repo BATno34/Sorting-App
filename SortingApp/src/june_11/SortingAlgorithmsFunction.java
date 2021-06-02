@@ -95,7 +95,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		
 		sortButton.setVisible(true);
 		slider.setBounds(10, 11, 521, 26);
-		comboBox.setVisible(true);
+		comboBox.setEnabled(true);
 		lblChooseSortType.setVisible(true);
 		lblBars.setVisible(true);
 		toReturn.setVisible(true);
@@ -156,7 +156,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				sortButton.setVisible(false);
 				slider.setBounds(10, 11, 0, 26);
-				comboBox.setVisible(false);
+				comboBox.setEnabled(false);
 				lblChooseSortType.setVisible(false);
 				lblBars.setVisible(false);
 				toReturn.setVisible(false);
@@ -206,7 +206,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		lblSpeed = new JLabel();
 		lblSpeed.setText("Sorting Delay (ms): 500");
 		lblSpeed.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		lblSpeed.setBounds(317, 48, 200, 31);
+		lblSpeed.setBounds(317, 84, 200, 31);
 		contentPane.add(lblSpeed);
 		
 		sliderSpeed = new JSlider();
@@ -216,11 +216,11 @@ public class SortingAlgorithmsFunction extends JFrame {
 				lblSpeed.setText("Sorting Delay (ms): "+sortDelay);
 			}
 		});
-		sliderSpeed.setMinimum(50);
+		sliderSpeed.setMinimum(10);
 		sliderSpeed.setValue(500);
 		sliderSpeed.setMaximum(1000);
 		sliderSpeed.setMajorTickSpacing(10);
-		sliderSpeed.setBounds(10, 51, 297, 26);
+		sliderSpeed.setBounds(10, 88, 297, 26);
 		contentPane.add(sliderSpeed);
 	}
 }

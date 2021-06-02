@@ -87,7 +87,7 @@ public class QuickSort implements Runnable{
 	
 	public static void pause() {
 		try {
-			Thread.sleep(100);
+			Thread.sleep(SortingAlgorithmsFunction.sortDelay);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

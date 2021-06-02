@@ -36,7 +36,7 @@ public class BubbleSort implements Runnable{
 					importantIndexes.add(i+1);
 					SortingAlgorithmsFunction.drawSortedBars(importantIndexes,sortedIndexes);
 					try {
-						Thread.sleep(100);
+						Thread.sleep(SortingAlgorithmsFunction.sortDelay);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

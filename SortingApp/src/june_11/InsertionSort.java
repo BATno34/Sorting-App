@@ -34,7 +34,7 @@ public class InsertionSort implements Runnable{
 			 importantIndexes.add(j);
 			 SortingAlgorithmsFunction.drawSortedBars(importantIndexes,sortedIndexes);
 			 try {
-				 Thread.sleep(100);
+				 Thread.sleep(SortingAlgorithmsFunction.sortDelay);
 			 } catch (InterruptedException e) {
 				 e.printStackTrace();
 		   	 }
@@ -48,7 +48,7 @@ public class InsertionSort implements Runnable{
 				  SortingAlgorithmsFunction.drawSortedBars(importantIndexes,sortedIndexes);           	   
 				  j--;
 				  try { 
-					Thread.sleep(100);
+					Thread.sleep(SortingAlgorithmsFunction.sortDelay);
 				  } catch (InterruptedException e) {
 					e.printStackTrace();
 				  }

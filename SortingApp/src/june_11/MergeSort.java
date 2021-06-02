@@ -73,7 +73,7 @@ public class MergeSort implements Runnable {
 			barsHeight[j] = mergedSorted.get(i);
 			SortingAlgorithmsFunction.drawSortedBars(important,sorted);
 			 try {
-				 Thread.sleep(100);
+				 Thread.sleep(SortingAlgorithmsFunction.sortDelay);
 			 } catch (InterruptedException e) {
 				 e.printStackTrace();
 		   	 }
