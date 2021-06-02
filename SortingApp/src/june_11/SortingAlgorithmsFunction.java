@@ -14,16 +14,21 @@ public class SortingAlgorithmsFunction extends JFrame {
 	
 	private static JLabel lblBars = new JLabel();
 	private static JSlider slider;
+	private static JSlider sliderSpeed;
 	private static JButton sortButton;
 	private static JButton toReturn;
 	private static JComboBox comboBox;
 	private static JLabel lblChooseSortType;
+	private static JLabel lblSpeed;
 	private static JPanel contentPane;
+	
 	public static int numBars = 10;
 	public static int width;
 	public static JLabel[] bars = new JLabel[28];
 	public static int [] barsHeight;
 	public static int [] barsHeightCopy;
+	
+	public static int sortDelay = 500;
 	
 	public static JLabel[] drawBars () {
 		if(bars[0] != null) {
@@ -197,5 +202,25 @@ public class SortingAlgorithmsFunction extends JFrame {
 		lblChooseSortType.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		lblChooseSortType.setBounds(541, 46, 200, 31);
 		contentPane.add(lblChooseSortType);
+		
+		lblSpeed = new JLabel();
+		lblSpeed.setText("Sorting Delay (ms): 500");
+		lblSpeed.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		lblSpeed.setBounds(317, 48, 200, 31);
+		contentPane.add(lblSpeed);
+		
+		sliderSpeed = new JSlider();
+		sliderSpeed.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				sortDelay = sliderSpeed.getValue();
+				lblSpeed.setText("Sorting Delay (ms): "+sortDelay);
+			}
+		});
+		sliderSpeed.setMinimum(50);
+		sliderSpeed.setValue(500);
+		sliderSpeed.setMaximum(1000);
+		sliderSpeed.setMajorTickSpacing(10);
+		sliderSpeed.setBounds(10, 51, 297, 26);
+		contentPane.add(sliderSpeed);
 	}
 }
