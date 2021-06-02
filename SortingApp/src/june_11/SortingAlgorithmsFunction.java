@@ -191,6 +191,11 @@ public class SortingAlgorithmsFunction extends JFrame {
 		contentPane.add(toReturn);
 		
 		comboBox = new JComboBox();
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				bars = drawBars();
+			}
+		});
 		comboBox.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Bubble Sort", "Selection Sort", "Insertion Sort", "Merge Sort", "Quick Sort"}));
 		comboBox.setMaximumRowCount(5);
