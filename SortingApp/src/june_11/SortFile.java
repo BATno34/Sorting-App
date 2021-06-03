@@ -1,6 +1,7 @@
 package june_11;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.SystemColor;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -52,6 +53,7 @@ public class SortFile {
 	private JLabel outputLabel;
 	private static JRadioButton intRdBtn;
 	private JButton clearScreen;
+	private static JButton toReturn;
 
 	/**
 	 * Launch the application.
@@ -322,6 +324,18 @@ public class SortFile {
 		updateButton.setBackground(Color.WHITE);
 		updateButton.setBounds(149, 489, 234, 23);
 		frame.getContentPane().add(updateButton);
+		
+		toReturn = new JButton("Return");
+		toReturn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MainMenu mainMenu = new MainMenu();
+				frame.dispose();
+				mainMenu.frame.setVisible(true);
+			}
+		});
+		toReturn.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		toReturn.setBounds(550, 550, 100, 50);
+		frame.getContentPane().add(toReturn);
 		
 		clearScreen = new JButton("Clear Screen");
 		clearScreen.addActionListener(new ActionListener() {
