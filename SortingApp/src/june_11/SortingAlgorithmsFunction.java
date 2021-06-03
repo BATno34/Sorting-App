@@ -20,6 +20,8 @@ public class SortingAlgorithmsFunction extends JFrame {
 	private static JComboBox comboBox;
 	private static JLabel lblChooseSortType;
 	private static JLabel lblSpeed;
+	private static JLabel lblColours;
+	private static JLabel lblColourExplanation;
 	private static JPanel contentPane;
 	
 	public static int numBars = 10;
@@ -98,6 +100,8 @@ public class SortingAlgorithmsFunction extends JFrame {
 		comboBox.setEnabled(true);
 		lblChooseSortType.setVisible(true);
 		lblBars.setVisible(true);
+		lblColours.setVisible(false);
+		lblColourExplanation.setVisible(false);
 		toReturn.setVisible(true);
 	}
 
@@ -159,18 +163,31 @@ public class SortingAlgorithmsFunction extends JFrame {
 				comboBox.setEnabled(false);
 				lblChooseSortType.setVisible(false);
 				lblBars.setVisible(false);
+				lblColours.setVisible(true);
+				lblColourExplanation.setVisible(true);
 				toReturn.setVisible(false);
+								
 				Thread sortingThread = new Thread();
-				if (comboBox.getSelectedItem().toString().toUpperCase().equals("BUBBLE SORT"))
+				if (comboBox.getSelectedItem().toString().toUpperCase().equals("BUBBLE SORT")) {
 					sortingThread = new Thread(new BubbleSort(barsHeight));
-				if (comboBox.getSelectedItem().toString().toUpperCase().equals("INSERTION SORT"))
+					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Already sorted.");
+				}
+				if (comboBox.getSelectedItem().toString().toUpperCase().equals("INSERTION SORT")) {
 					sortingThread = new Thread(new InsertionSort(barsHeight));
-				if (comboBox.getSelectedItem().toString().toUpperCase().equals("MERGE SORT"))
+					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Already sorted.");
+				}
+				if (comboBox.getSelectedItem().toString().toUpperCase().equals("MERGE SORT")) {
 					sortingThread = new Thread(new MergeSort(barsHeight));
-				if (comboBox.getSelectedItem().toString().toUpperCase().equals("SELECTION SORT"))
+					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Already sorted.");
+				}
+				if (comboBox.getSelectedItem().toString().toUpperCase().equals("SELECTION SORT")) {
 					sortingThread = new Thread(new SelectionSort(barsHeight));
-				if (comboBox.getSelectedItem().toString().toUpperCase().equals("QUICK SORT"))
+					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Already sorted.");
+				}
+				if (comboBox.getSelectedItem().toString().toUpperCase().equals("QUICK SORT")) {
 					sortingThread = new Thread(new QuickSort(barsHeight));
+					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Pivot and already sorted.");
+				}
 				sortingThread.start();
 			}
 		});
@@ -227,5 +244,19 @@ public class SortingAlgorithmsFunction extends JFrame {
 		sliderSpeed.setMajorTickSpacing(10);
 		sliderSpeed.setBounds(10, 88, 297, 26);
 		contentPane.add(sliderSpeed);
+		
+		lblColours = new JLabel();
+		lblColours.setText("Colours:");
+		lblColours.setVerticalAlignment(SwingConstants.TOP);
+		lblColours.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		lblColours.setBounds(107, 433, 588, 26);
+		contentPane.add(lblColours);
+		lblColours.setVisible(false);
+		
+		lblColourExplanation = new JLabel("");
+		lblColourExplanation.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		lblColourExplanation.setBounds(107, 450, 594, 26);
+		contentPane.add(lblColourExplanation);
+		lblColourExplanation.setVisible(false);
 	}
 }
