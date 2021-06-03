@@ -280,7 +280,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		sortedListButton.setBounds(469, 433, 210, 29);
 		contentPane.add(sortedListButton);
 		
-		reverseListButton = new JButton("Show Reverse List");
+		reverseListButton = new JButton("Show Reversed List");
 		reverseListButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Arrays.sort(barsHeight);
@@ -296,7 +296,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		reverseListButton.setBounds(469, 471, 210, 29);
 		contentPane.add(reverseListButton);
 		
-		shuffleListButton = new JButton("Show Shuffle List");
+		shuffleListButton = new JButton("Show Shuffled List");
 		shuffleListButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Integer> intList = new ArrayList<Integer>(barsHeight.length);
