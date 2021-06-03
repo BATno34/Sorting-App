@@ -1,6 +1,7 @@
 package june_11;
 
 import java.util.*;
+import java.util.List;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,6 +10,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Collections;
 
 public class SortingAlgorithmsFunction extends JFrame {
 	
@@ -31,6 +33,9 @@ public class SortingAlgorithmsFunction extends JFrame {
 	public static int [] barsHeightCopy;
 	
 	public static int sortDelay = 500;
+	private static JButton sortedListButton;
+	private static JButton reverseListButton;
+	private static JButton shuffleListButton;
 	
 	public static JLabel[] drawBars () {
 		if(bars[0] != null) {
@@ -103,6 +108,9 @@ public class SortingAlgorithmsFunction extends JFrame {
 		lblColours.setVisible(false);
 		lblColourExplanation.setVisible(false);
 		toReturn.setVisible(true);
+		sortedListButton.setVisible(true);
+		reverseListButton.setVisible(true);
+		shuffleListButton.setVisible(true);
 	}
 
 
@@ -148,7 +156,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		slider.setMajorTickSpacing(1);
 		slider.setMaximum(50);
 		slider.setMinimum(5);
-		slider.setBounds(10, 11, 521, 26);
+		slider.setBounds(10, 11, 507, 26);
 		contentPane.add(slider);
 		
 		lblBars.setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -166,6 +174,9 @@ public class SortingAlgorithmsFunction extends JFrame {
 				lblColours.setVisible(true);
 				lblColourExplanation.setVisible(true);
 				toReturn.setVisible(false);
+				sortedListButton.setVisible(false);
+				reverseListButton.setVisible(false);
+				shuffleListButton.setVisible(false);
 								
 				Thread sortingThread = new Thread();
 				if (comboBox.getSelectedItem().toString().toUpperCase().equals("BUBBLE SORT")) {
@@ -192,7 +203,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 			}
 		});
 		sortButton.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
-		sortButton.setBounds(250, 450, 100, 50);
+		sortButton.setBounds(73, 450, 102, 33);
 		contentPane.add(sortButton);
 		
 		toReturn = new JButton("Return");
@@ -204,7 +215,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 			}
 		});
 		toReturn.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
-		toReturn.setBounds(450, 450, 100, 50);
+		toReturn.setBounds(73, 495, 102, 33);
 		contentPane.add(toReturn);
 		
 		comboBox = new JComboBox();
@@ -257,6 +268,51 @@ public class SortingAlgorithmsFunction extends JFrame {
 		lblColourExplanation.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		lblColourExplanation.setBounds(107, 450, 594, 26);
 		contentPane.add(lblColourExplanation);
+		
+		sortedListButton = new JButton("Show Sorted List");
+		sortedListButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Arrays.sort(barsHeight);
+				ArrayList<Integer> emptyList = new ArrayList<Integer>();
+				drawSortedBars(emptyList, emptyList);
+			}
+		});
+		sortedListButton.setBounds(469, 433, 210, 29);
+		contentPane.add(sortedListButton);
+		
+		reverseListButton = new JButton("Show Reverse List");
+		reverseListButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Arrays.sort(barsHeight);
+				int[] copyBarsHeight = barsHeight.clone();
+				for (int i = copyBarsHeight.length - 1; i >= 0; i--) {
+					barsHeight[copyBarsHeight.length - 1 - i] = copyBarsHeight[i];
+				}
+				ArrayList<Integer> emptyList = new ArrayList<Integer>();
+				drawSortedBars(emptyList, emptyList);
+								
+			}
+		});
+		reverseListButton.setBounds(469, 471, 210, 29);
+		contentPane.add(reverseListButton);
+		
+		shuffleListButton = new JButton("Show Shuffle List");
+		shuffleListButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<Integer> intList = new ArrayList<Integer>(barsHeight.length);
+				for (int i : barsHeight) {
+				    intList.add(i);
+				}
+				Collections.shuffle(intList);
+				for (int i = 0; i < intList.size() - 1; i++) {
+					barsHeight[i] = intList.get(i);
+				}
+				ArrayList<Integer> emptyList = new ArrayList<Integer>();
+				drawSortedBars(emptyList, emptyList);
+			}
+		});
+		shuffleListButton.setBounds(469, 512, 210, 29);
+		contentPane.add(shuffleListButton);
 		lblColourExplanation.setVisible(false);
 	}
 }

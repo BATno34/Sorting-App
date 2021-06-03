@@ -25,15 +25,24 @@ public class BubbleSort implements Runnable{
 		ArrayList<Integer> sortedIndexes = new ArrayList<Integer>();
 		do {
 			swaps = 0;
+			
 	    	for (int i = 0; i < (barsHeight.length - turn - 1); i++) {
-	    		if (barsHeight[i+1] < barsHeight[i]) {							
+	    		ArrayList<Integer> importantIndexes = new ArrayList<Integer>(2);
+    			importantIndexes.add(i);
+    			importantIndexes.add(i+1);
+    			SortingAlgorithmsFunction.drawSortedBars(importantIndexes,sortedIndexes);
+    			try {
+    				Thread.sleep(SortingAlgorithmsFunction.sortDelay);
+    			} catch (InterruptedException e) {
+    				e.printStackTrace();
+    			}
+	    		if (barsHeight[i+1] < barsHeight[i]) {	    			
 					copy = barsHeightCopy[i];
 					barsHeight[i] = barsHeight[i+1];
 					barsHeight[i+1] = copy;
 					barsHeightCopy = barsHeight;
-					ArrayList<Integer> importantIndexes = new ArrayList<Integer>(2);
-					importantIndexes.add(i);
-					importantIndexes.add(i+1);
+					importantIndexes.set(0, i);
+					importantIndexes.set(1, i+1);
 					SortingAlgorithmsFunction.drawSortedBars(importantIndexes,sortedIndexes);
 					try {
 						Thread.sleep(SortingAlgorithmsFunction.sortDelay);
