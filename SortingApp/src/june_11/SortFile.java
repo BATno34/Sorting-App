@@ -88,6 +88,7 @@ public class SortFile {
 		frame.setBounds(100, 100, 1200, 650);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
 		
 		JButton openFileButton = new JButton("Open File");
 		openFileButton.setBackground(Color.WHITE);
