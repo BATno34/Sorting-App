@@ -29,7 +29,7 @@ public class QuickSort implements Runnable{
 		JOptionPane.showMessageDialog(null, "Sorting complete!");
 	}
 
-	/** The method 
+	/** The algorithm that uses quick sort to recerively sort a list in ascending order
 	 * @param start				The start index of the list to sort (inclusive)
 	 * @param end				The end index of the list to sort (inclusive)
 	 */
