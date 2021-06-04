@@ -20,7 +20,8 @@ public class QuickSort implements Runnable{
 	}
 	
 	/**
-	 * When a thread starts, this method will be called so that the animation could run
+	 * When a thread starts, this method will be called so that the animation could run.
+	 * Override from implementing Runnable
 	 */
 	@Override
 	public void run() {
@@ -29,7 +30,7 @@ public class QuickSort implements Runnable{
 		JOptionPane.showMessageDialog(null, "Sorting complete!");
 	}
 
-	/** The algorithm that uses quick sort to recerively sort a list in ascending order
+	/** Uses quick sort algorithm to sort a list in ascending order
 	 * @param start				The start index of the list to sort (inclusive)
 	 * @param end				The end index of the list to sort (inclusive)
 	 */

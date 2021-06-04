@@ -20,13 +20,15 @@ public class InsertionSort implements Runnable{
 	
 	/**
 	 * When a thread starts, this method will be called so that the animation could run
+	 * Override from implementing Runnable
 	 */
 	@Override
 	public void run() {
  	   	insertionSort();
 	}
 	
-	/** The algorithm that uses insertion sort to sort a list in ascending order
+	/** 
+	 * Uses insertion sort algorithm to sort a list in ascending order
 	 */
 	private void insertionSort() {
 		 int temp;

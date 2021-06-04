@@ -4,21 +4,35 @@ import java.util.*;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+/**
+ * The animation of using selection sort method to sort bars
+ * @author Ardavan, Shirley, Shreyas
+ * @version June 11 2021
+ */
 public class SelectionSort implements Runnable{
 	
 	public static int [] barsHeight;
 	
+	/** Contructor
+	 * @param barsHeight		The int array that contains the bars' height to sort 
+	 */
 	public SelectionSort(int[] barsHeight) {
-		
 		this.barsHeight = barsHeight;
 	}
 	
+	/**
+	 * When a thread starts, this method will be called so that the animation could run
+	 * Override from implementing Runnable
+	 */
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		selectionSort();
 	}
 	
+	/** 
+	 * Uses selection sort algorithm to sort a list in ascending order
+	 */
 	public void selectionSort() {
 		int n = barsHeight.length;
 		ArrayList<Integer> comparingBars = new ArrayList<Integer>();

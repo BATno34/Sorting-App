@@ -1,22 +1,35 @@
 package june_11;
 
 import java.util.*;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+/**
+ * The animation of using bubble sort method to sort bars
+ * @author Ardavan, Shirley, Shreyas
+ * @version June 11 2021
+ */
 public class BubbleSort implements Runnable{
 	public static int [] barsHeight;
 	
+	/** Contructor
+	 * @param barsHeight		The int array that contains the bars' height to sort 
+	 */
 	public BubbleSort(int[] barsHeight) {
 		this.barsHeight = barsHeight;
 	}
 	
+	/**
+	 * When a thread starts, this method will be called so that the animation could run
+	 * Override from implementing Runnable
+	 */
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		bubbleSort();
 	}
 	
+	/** 
+	 * Uses bubble sort algorithm to sort a list in ascending order
+	 */
 	public void bubbleSort() {
 		int swaps;
 		int copy;
@@ -36,6 +49,8 @@ public class BubbleSort implements Runnable{
     			} catch (InterruptedException e) {
     				e.printStackTrace();
     			}
+    			
+    			//Swap if current bar height is larger than the next one
 	    		if (barsHeight[i+1] < barsHeight[i]) {	    			
 					copy = barsHeightCopy[i];
 					barsHeight[i] = barsHeight[i+1];
