@@ -1,18 +1,28 @@
 package june_11;
 
 import java.util.ArrayList;
-
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+/**
+ * The starting application window for the app, used as a Main Menu
+ * Starting point (main file) for the rest of the app
+ * @author Ardavan, Shirley, Shreyas
+ * @version June 11 2021
+ */
 public class QuickSort implements Runnable{
 	public static int [] barsHeight;
 	ArrayList<Integer> pivotIndex = new ArrayList<Integer>();
 	
+	/** Contructor
+	 * @param barsHeight		The int array that contains the bars' height to sort 
+	 */
 	public QuickSort(int[] barsHeight) {
 		this.barsHeight = barsHeight;
 	}
 	
+	/**
+	 * When a thread starts, this method will be called so that the animation could run
+	 */
 	@Override
 	public void run() {
  	   	quickSort(0, barsHeight.length - 1);
@@ -20,6 +30,10 @@ public class QuickSort implements Runnable{
 		JOptionPane.showMessageDialog(null, "Sorting complete!");
 	}
 
+	/** The method 
+	 * @param start				The start index of the list to sort (inclusive)
+	 * @param end				The end index of the list to sort (inclusive)
+	 */
 	private void quickSort(int start, int end) {
 		int temp;
 		ArrayList<Integer> startEndIndexes = new ArrayList<Integer>(2);
@@ -33,6 +47,7 @@ public class QuickSort implements Runnable{
 		//and the right side all numbers larger than the pivot
 		int i = start;
 		int j = end;
+		//Display comparison
 		swappingIndexes.add(i);
 		swappingIndexes.add(j);
 		SortingAlgorithmsFunction.drawSortedBars(swappingIndexes, pivotIndex);
@@ -62,6 +77,7 @@ public class QuickSort implements Runnable{
 					pivotIndex.set(pivotIndex.size()-1, i);
 				}
 				
+				//Display the swapping
 				temp = barsHeight[i];
 				barsHeight[i] = barsHeight[j];
 				barsHeight[j] = temp;
@@ -85,6 +101,9 @@ public class QuickSort implements Runnable{
 		
 	}
 	
+	/**
+	 * Add a delay when running the animation
+	 */
 	public static void pause() {
 		try {
 			Thread.sleep(SortingAlgorithmsFunction.sortDelay);
