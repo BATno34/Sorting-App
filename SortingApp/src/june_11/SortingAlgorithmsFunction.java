@@ -11,6 +11,8 @@ import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Collections;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class SortingAlgorithmsFunction extends JFrame {
 	
@@ -25,6 +27,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 	private static JLabel lblColours;
 	private static JLabel lblColourExplanation;
 	private static JPanel contentPane;
+	private static JFrame frame;
 	
 	public static int numBars = 10;
 	public static int width;
@@ -36,16 +39,14 @@ public class SortingAlgorithmsFunction extends JFrame {
 	private static JButton sortedListButton;
 	private static JButton reverseListButton;
 	private static JButton shuffleListButton;
+	public static AutoResize resize;
 	
 	public static JLabel[] drawBars () {
 		if(bars[0] != null) {
-			Container parent = bars[0].getParent();
-			for(int i = 0; i < bars.length; i++) {
-				parent = bars[i].getParent();
-				parent.remove(bars[i]);
-				parent.validate();
-			}
-			parent.repaint();
+			for(int i = 0; i < bars.length; i++)
+				contentPane.remove(bars[i]);
+			
+			contentPane.repaint();
 		}
 		
 		bars = new JLabel [numBars];
@@ -58,7 +59,8 @@ public class SortingAlgorithmsFunction extends JFrame {
 			int height = (int)(Math.random() * 200) + 20;
 			barsHeight[m] = height;
 			barsHeightCopy[m] = height;
-			bars[m].setBounds((m*(2+width)+(800-(numBars*(width+2)))/2), (400 - height), width, height);
+			resize = new AutoResize((m*(2+width)+(800-(numBars*(width+2)))/2), (400 - height), width, height, 0, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+			bars[m].setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 			contentPane.add(bars[m]);
 		}
 		
@@ -67,12 +69,9 @@ public class SortingAlgorithmsFunction extends JFrame {
 	
 	
 	public static void drawSortedBars (ArrayList<Integer> comparingBars, ArrayList<Integer> sortedBars) {
-		Container parent = bars[0].getParent();
-		for(int i = 0; i < bars.length; i++) {
-			parent = bars[i].getParent();
-			parent.remove(bars[i]);
-			parent.validate();
-		}
+
+		for(int i = 0; i < bars.length; i++)
+			contentPane.remove(bars[i]);
 		
 		for (int m = 0; m < numBars; m++) {
 			bars[m] = new JLabel ("");
@@ -84,12 +83,12 @@ public class SortingAlgorithmsFunction extends JFrame {
 			} else {
 				bars[m].setBackground(Color.ORANGE);
 			}
-			bars[m].setBounds((m*(2+width)+(800-(numBars*(width+2)))/2), (400 - barsHeight[m]), width, barsHeight[m]);
+			resize = new AutoResize((m*(2+width)+(800-(numBars*(width+2)))/2), (400 - barsHeight[m]), width, barsHeight[m], 0, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+			bars[m].setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 			contentPane.add(bars[m]);
 		}
-	
-        parent.repaint();
-        parent.validate();
+		
+		contentPane.repaint();
 	}
 
 	public static void endOfSort(){
@@ -100,8 +99,10 @@ public class SortingAlgorithmsFunction extends JFrame {
 			parent.validate();
 		}
 		
+		frame.setResizable(true);
 		sortButton.setVisible(true);
-		slider.setBounds(10, 11, 521, 26);
+		resize = new AutoResize(10, 11, 507, 26, 0, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+		slider.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		comboBox.setEnabled(true);
 		lblChooseSortType.setVisible(true);
 		lblBars.setVisible(true);
@@ -121,7 +122,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SortingAlgorithmsFunction frame = new SortingAlgorithmsFunction();
+					frame = new SortingAlgorithmsFunction();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -137,18 +138,28 @@ public class SortingAlgorithmsFunction extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
+		contentPane.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				contentPane.removeAll();
+				contentPane.repaint();
+				addComponent();
+			}
+		});
 		contentPane.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+	}
+	
+	public static void addComponent() {
 		
 		slider = new JSlider();
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				numBars = slider.getValue();
 				lblBars.setText("Bars: "+numBars);
-				width = 600 / numBars;
+				width = (600 / numBars);
 				bars = drawBars();
 			}
 		});
@@ -156,16 +167,19 @@ public class SortingAlgorithmsFunction extends JFrame {
 		slider.setMajorTickSpacing(1);
 		slider.setMaximum(50);
 		slider.setMinimum(5);
-		slider.setBounds(10, 11, 507, 26);
+		resize = new AutoResize(10, 11, 507, 26, 0, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+		slider.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(slider);
 		
-		lblBars.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		lblBars.setBounds(541, 6, 200, 31);
+		resize = new AutoResize (541, 6, 200, 31, 14, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+		lblBars.setFont(new Font("Times New Roman", Font.PLAIN, resize.newFontSize()));
+		lblBars.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(lblBars);
 		
 		sortButton = new JButton("Sort");
 		sortButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setResizable(false);
 				sortButton.setVisible(false);
 				slider.setBounds(10, 11, 0, 26);
 				comboBox.setEnabled(false);
@@ -183,39 +197,41 @@ public class SortingAlgorithmsFunction extends JFrame {
 					sortingThread = new Thread(new BubbleSort(barsHeight));
 					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Already sorted.");
 				}
-				if (comboBox.getSelectedItem().toString().toUpperCase().equals("INSERTION SORT")) {
+				else if (comboBox.getSelectedItem().toString().toUpperCase().equals("INSERTION SORT")) {
 					sortingThread = new Thread(new InsertionSort(barsHeight));
 					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Already sorted.");
 				}
-				if (comboBox.getSelectedItem().toString().toUpperCase().equals("MERGE SORT")) {
+				else if (comboBox.getSelectedItem().toString().toUpperCase().equals("MERGE SORT")) {
 					sortingThread = new Thread(new MergeSort(barsHeight));
 					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Already sorted.");
 				}
-				if (comboBox.getSelectedItem().toString().toUpperCase().equals("SELECTION SORT")) {
+				else if (comboBox.getSelectedItem().toString().toUpperCase().equals("SELECTION SORT")) {
 					sortingThread = new Thread(new SelectionSort(barsHeight));
 					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Already sorted.");
 				}
-				if (comboBox.getSelectedItem().toString().toUpperCase().equals("QUICK SORT")) {
+				else if (comboBox.getSelectedItem().toString().toUpperCase().equals("QUICK SORT")) {
 					sortingThread = new Thread(new QuickSort(barsHeight));
 					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Pivot and already sorted.");
 				}
 				sortingThread.start();
 			}
 		});
-		sortButton.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
-		sortButton.setBounds(73, 450, 102, 33);
+		resize = new AutoResize (73, 450, 102, 33, 15, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+		sortButton.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, resize.newFontSize()));
+		sortButton.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(sortButton);
 		
 		toReturn = new JButton("Return");
 		toReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainMenu mainMenu = new MainMenu();
-				dispose();
+				frame.setVisible(false);
 				mainMenu.frame.setVisible(true);
 			}
 		});
-		toReturn.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
-		toReturn.setBounds(73, 495, 102, 33);
+		resize = new AutoResize (73, 495, 102, 33, 15, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+		toReturn.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, resize.newFontSize()));
+		toReturn.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(toReturn);
 		
 		comboBox = new JComboBox();
@@ -224,22 +240,25 @@ public class SortingAlgorithmsFunction extends JFrame {
 				bars = drawBars();
 			}
 		});
-		comboBox.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		resize = new AutoResize (541, 88, 200, 26, 12, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+		comboBox.setFont(new Font("Times New Roman", Font.PLAIN, resize.newFontSize()));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Bubble Sort", "Selection Sort", "Insertion Sort", "Merge Sort", "Quick Sort"}));
 		comboBox.setMaximumRowCount(5);
-		comboBox.setBounds(541, 88, 200, 26);
+		comboBox.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(comboBox);
 		
 		lblChooseSortType = new JLabel();
 		lblChooseSortType.setText("Choose Sort Type:");
-		lblChooseSortType.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		lblChooseSortType.setBounds(541, 46, 200, 31);
+		resize = new AutoResize (541, 46, 200, 31, 14, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+		lblChooseSortType.setFont(new Font("Times New Roman", Font.PLAIN, resize.newFontSize()));
+		lblChooseSortType.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(lblChooseSortType);
 		
 		lblSpeed = new JLabel();
 		lblSpeed.setText("Sorting Delay (ms): 500");
-		lblSpeed.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		lblSpeed.setBounds(317, 84, 200, 31);
+		resize = new AutoResize (317, 84, 200, 31, 14, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+		lblSpeed.setFont(new Font("Times New Roman", Font.PLAIN, resize.newFontSize()));
+		lblSpeed.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(lblSpeed);
 		
 		sliderSpeed = new JSlider();
@@ -253,20 +272,23 @@ public class SortingAlgorithmsFunction extends JFrame {
 		sliderSpeed.setValue(500);
 		sliderSpeed.setMaximum(1000);
 		sliderSpeed.setMajorTickSpacing(10);
-		sliderSpeed.setBounds(10, 88, 297, 26);
+		resize = new AutoResize (10, 88, 297, 26, 0, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+		sliderSpeed.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(sliderSpeed);
 		
 		lblColours = new JLabel();
 		lblColours.setText("Colours:");
 		lblColours.setVerticalAlignment(SwingConstants.TOP);
-		lblColours.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		lblColours.setBounds(107, 433, 588, 26);
+		resize = new AutoResize (107, 433, 588, 26, 14, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+		lblColours.setFont(new Font("Times New Roman", Font.PLAIN, resize.newFontSize()));
+		lblColours.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(lblColours);
 		lblColours.setVisible(false);
 		
 		lblColourExplanation = new JLabel("");
-		lblColourExplanation.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		lblColourExplanation.setBounds(107, 450, 594, 26);
+		resize = new AutoResize (107, 450, 594, 26, 14, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+		lblColourExplanation.setFont(new Font("Times New Roman", Font.PLAIN, resize.newFontSize()));
+		lblColourExplanation.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(lblColourExplanation);
 		
 		sortedListButton = new JButton("Show Sorted List");
@@ -277,7 +299,9 @@ public class SortingAlgorithmsFunction extends JFrame {
 				drawSortedBars(emptyList, emptyList);
 			}
 		});
-		sortedListButton.setBounds(469, 433, 210, 29);
+		resize = new AutoResize (469, 433, 210, 29, 11, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+		sortedListButton.setFont(new Font("Tahoma", Font.BOLD, resize.newFontSize()));
+		sortedListButton.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(sortedListButton);
 		
 		reverseListButton = new JButton("Show Reversed List");
@@ -293,7 +317,9 @@ public class SortingAlgorithmsFunction extends JFrame {
 								
 			}
 		});
-		reverseListButton.setBounds(469, 471, 210, 29);
+		resize = new AutoResize (469, 471, 210, 29, 11, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+		reverseListButton.setFont(new Font("Tahoma", Font.BOLD, resize.newFontSize()));
+		reverseListButton.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(reverseListButton);
 		
 		shuffleListButton = new JButton("Show Shuffled List");
@@ -311,7 +337,9 @@ public class SortingAlgorithmsFunction extends JFrame {
 				drawSortedBars(emptyList, emptyList);
 			}
 		});
-		shuffleListButton.setBounds(469, 512, 210, 29);
+		resize = new AutoResize (469, 512, 210, 29, 11, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+		shuffleListButton.setFont(new Font("Tahoma", Font.BOLD, resize.newFontSize()));
+		shuffleListButton.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(shuffleListButton);
 		lblColourExplanation.setVisible(false);
 	}
