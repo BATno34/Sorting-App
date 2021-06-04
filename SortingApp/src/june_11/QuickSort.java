@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
- * The starting application window for the app, used as a Main Menu
- * Starting point (main file) for the rest of the app
+ * The animation of using quick sort method to sort bars
  * @author Ardavan, Shirley, Shreyas
  * @version June 11 2021
  */
