@@ -1,23 +1,33 @@
 package june_11;
 
-import java.awt.EventQueue;
 import java.util.ArrayList;
-
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+/**
+ * The animation of using insertion sort method to sort bars
+ * @author Ardavan, Shirley, Shreyas
+ * @version June 11 2021
+ */
 public class InsertionSort implements Runnable{
 	public static int [] barsHeight;
 	
+	/** Contructor
+	 * @param barsHeight		The int array that contains the bars' height to sort 
+	 */
 	public InsertionSort(int[] barsHeight) {
 		this.barsHeight = barsHeight;
 	}
 	
+	/**
+	 * When a thread starts, this method will be called so that the animation could run
+	 */
 	@Override
 	public void run() {
  	   	insertionSort();
 	}
-
+	
+	/** The algorithm that uses insertion sort to sort a list in ascending order
+	 */
 	private void insertionSort() {
 		 int temp;
 		 int[]barsHeightCopy = barsHeight;

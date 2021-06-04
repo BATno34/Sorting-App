@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
- * The starting application window for the app, used as a Main Menu
- * Starting point (main file) for the rest of the app
+ * The animation of using quick sort method to sort bars
  * @author Ardavan, Shirley, Shreyas
  * @version June 11 2021
  */
@@ -30,7 +29,7 @@ public class QuickSort implements Runnable{
 		JOptionPane.showMessageDialog(null, "Sorting complete!");
 	}
 
-	/** The method 
+	/** The algorithm that uses quick sort to recerively sort a list in ascending order
 	 * @param start				The start index of the list to sort (inclusive)
 	 * @param end				The end index of the list to sort (inclusive)
 	 */
