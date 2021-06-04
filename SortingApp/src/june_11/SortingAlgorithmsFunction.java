@@ -330,8 +330,11 @@ public class SortingAlgorithmsFunction extends JFrame {
 				    intList.add(i);
 				}
 				Collections.shuffle(intList);
-				for (int i = 0; i < intList.size() - 1; i++) {
+				for (int i = 0; i < intList.size(); i++) {
 					barsHeight[i] = intList.get(i);
+				}
+				for (int i = 0; i < intList.size(); i++) {
+					intList.remove(i);
 				}
 				ArrayList<Integer> emptyList = new ArrayList<Integer>();
 				drawSortedBars(emptyList, emptyList);
