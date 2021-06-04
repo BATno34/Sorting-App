@@ -10,29 +10,25 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.text.Document;
-import javax.swing.text.Segment;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import java.awt.Color;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
+/**
+ * Function 1 of the app, allows the user to upload (and edit) a file to sort
+ * @author Ardavan, Shirley, Shreyas
+ * @version June 11 2021
+ */
 public class SortFile {
 
 	public static JFrame frame;
@@ -89,7 +85,22 @@ public class SortFile {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
+
+		//Return to main function
+		toReturn = new JButton("Return");
+		toReturn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MainMenu mainMenu = new MainMenu();
+				frame.dispose();
+				mainMenu.frame.setVisible(true);
+			}
+		});
+		toReturn.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		toReturn.setBounds(550, 550, 100, 50);
+		frame.getContentPane().add(toReturn);
+				
 		
+		//Read form a text file to get content to sort
 		JButton openFileButton = new JButton("Open File");
 		openFileButton.setBackground(Color.WHITE);
 		openFileButton.addActionListener(new ActionListener() {
@@ -127,6 +138,7 @@ public class SortFile {
 		openFileButton.setBounds(26, 23, 89, 23);
 		frame.getContentPane().add(openFileButton);
 		
+		//Save the file after sorting is completed
 		JButton saveFileButton = new JButton("Save File");
 		saveFileButton.setBackground(Color.WHITE);
 		saveFileButton.addActionListener(new ActionListener() {
@@ -189,10 +201,12 @@ public class SortFile {
 		saveFileButton.setBounds(26, 543, 89, 23);
 		frame.getContentPane().add(saveFileButton);
 		
+		//Display the file that is selected to sort
 		fileLabel = new JLabel("No File Selected");
 		fileLabel.setBounds(149, 27, 1025, 14);
 		frame.getContentPane().add(fileLabel);
 		
+		//Display a message of whether the current file is saved
 		saveLabel = new JLabel("File Not Saved");
 		saveLabel.setBounds(149, 546, 1025, 14);
 		frame.getContentPane().add(saveLabel);
@@ -217,6 +231,7 @@ public class SortFile {
 		outputScroll.setLocation(650, 162);
 		frame.getContentPane().add(outputScroll);
 		
+		//Sorting type radio buttons
 		orderRdBtn = new JRadioButton("Sort in ascending order");
 		orderRdBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -259,6 +274,7 @@ public class SortFile {
 		shuffleRdBtn.setBounds(629, 101, 114, 23);
 		frame.getContentPane().add(shuffleRdBtn);
 		
+		//Input type radio buttons
 		JLabel inputTypeLabel = new JLabel("Choose an input type:");
 		inputTypeLabel.setBounds(36, 64, 224, 16);
 		frame.getContentPane().add(inputTypeLabel);
@@ -307,6 +323,7 @@ public class SortFile {
 		outputLabel.setBounds(650, 143, 61, 16);
 		frame.getContentPane().add(outputLabel);
 		
+		//Update the sort on screen
 		JButton updateButton = new JButton("Update");
 		updateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -326,18 +343,7 @@ public class SortFile {
 		updateButton.setBounds(149, 489, 234, 23);
 		frame.getContentPane().add(updateButton);
 		
-		toReturn = new JButton("Return");
-		toReturn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MainMenu mainMenu = new MainMenu();
-				frame.dispose();
-				mainMenu.frame.setVisible(true);
-			}
-		});
-		toReturn.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		toReturn.setBounds(550, 550, 100, 50);
-		frame.getContentPane().add(toReturn);
-		
+		//Reset everything on the screen
 		clearScreen = new JButton("Clear Screen");
 		clearScreen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -352,6 +358,11 @@ public class SortFile {
 		
 	}
 	
+	/** 
+	 * Convert a String ArrayList to a double ArrayList
+	 * @param list					The String ArrayList that need to be converted
+	 * @return						The ArrayList in type double
+	 */
 	public static ArrayList<Double> toDoubleArrayList (ArrayList<String> list){
 		ArrayList<Double> doubleList = new ArrayList<>();
 		try {
@@ -368,6 +379,11 @@ public class SortFile {
 		return doubleList;
 	}
 	
+	/** 
+	 * Convert a String ArrayList to a int ArrayList
+	 * @param list					The String ArrayList that need to be converted
+	 * @return						The ArrayList in type int
+	 */
 	public static ArrayList<Integer> toIntArrayList (ArrayList<String> list){
 		ArrayList<Integer> intList = new ArrayList<>();
 		try {
@@ -384,6 +400,12 @@ public class SortFile {
 		return intList;
 	}
 	
+	
+	/**
+	 * Display the content in the list to a TextArea
+	 * @param list					The ArrayList that contains Strings
+	 * @param textArea				The TextArea that we want the String to be displayed on
+	 */
 	public static void printOutputTA(ArrayList<String> list, JTextArea textArea) {
 		clearTA(textArea);
     	for (String s : list) {
@@ -391,7 +413,11 @@ public class SortFile {
         }
 	}
 	
-	
+	/**
+	 * Display the content in the list to a TextArea
+	 * @param list					The ArrayList that contains doubles
+	 * @param textArea				The TextArea that we want the double numbers to be displayed on
+	 */
 	public static void doublePrintOutputTA(ArrayList<Double> list, JTextArea textArea) {
 		clearTA(textArea);
     	for (Double d : list) {
@@ -399,6 +425,11 @@ public class SortFile {
         }
 	}
 	
+	/**
+	 * Display the content in the list to a TextArea
+	 * @param list					The ArrayList that contains int
+	 * @param textArea				The TextArea that we want the int numbers to be displayed on
+	 */
 	public static void intPrintOutputTA(ArrayList<Integer> list, JTextArea textArea) {
 		clearTA(textArea);
     	for (int i : list) {
@@ -406,23 +437,36 @@ public class SortFile {
         }
 	}
 	
+	/** 
+	 * Clear all content in the TextArea
+	 * @param textArea				The TextArea that we want to clear
+	 */
 	public static void clearTA(JTextArea textArea) {
 		textArea.selectAll();
 		textArea.replaceSelection("");
 	}
 	
+	/**
+	 * Clear selection of all radio buttons for sorting type
+	 */
 	public static void clearSortRdBtns() {
 		orderRdBtn.setSelected(false);
     	reverseRdBtn.setSelected(false);
 		shuffleRdBtn.setSelected(false);
 	}
 	
+	/**
+	 * Clear selection of all radio buttons for list type
+	 */
 	public static void clearTypeRdBtns() {
 		doubleRdBtn.setSelected(false);
 		intRdBtn.setSelected(false);
     	stringRdBtn.setSelected(false);
 	}
 	
+	/**
+	 * Clear all selection on the screen
+	 */
 	public static void clearScreen() {
         clearTA(inputTextArea);
         clearTA(outputTextArea);
@@ -434,6 +478,12 @@ public class SortFile {
 		clearTypeRdBtns();
 	}
 	
+	/**
+	 * Save context in the TextArea to an ArrayList
+	 * @param textArea				the TextArea that contains something
+	 * @param list					the list that we would like to add the content into
+	 * @return
+	 */
 	public static ArrayList<String> readFromTextArea(JTextArea textArea, ArrayList<String> list) {
 		list.clear();
 		String s[] = textArea.getText().split("\n");
@@ -441,6 +491,9 @@ public class SortFile {
         return list;
 	}
 	
+	/**
+	 * The function that sorts all types of list in adcending order
+	 */
 	public static void ascendingSort() {
 		if (originalList.size()<1) {
 			System.out.println(originalList.size());
@@ -466,6 +519,9 @@ public class SortFile {
 		}
 	}
 	
+	/**
+	 * The function that sorts all types of list in descending order
+	 */
 	public static void descendingSort() {
 		if (originalList.size()<1) {
 			JOptionPane.showMessageDialog(null, "No Content to Sort");
@@ -490,6 +546,9 @@ public class SortFile {
 		}
 	}
 	
+	/**
+	 * The function that shuffles a list
+	 */
 	public static void shuffleSort() {
 		if (originalList.size()<1) {
 			JOptionPane.showMessageDialog(null, "No Content to Sort");
