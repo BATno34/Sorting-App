@@ -1,5 +1,12 @@
 package june_11;
 
+/**
+ * The starting application window for the app, used as a Main Menu
+ * Starting point (main file) for the rest of the app
+ * @author Ardavan, Shirley, Shreyas
+ * @version June 11 2021
+ */
+
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
@@ -55,13 +62,18 @@ public class MainMenu {
 		frame.getContentPane().setLayout(null);
 	}
 	
+	/**
+	 * adds frame components to the screen, makes them resizable
+	 */
 	public static void addComponent() {
+		//title label
 		resize = new AutoResize (225, 100, 350, 50, 30, 800, 600, frame.getWidth(), frame.getHeight());
 		JLabel welcomeLabel = new JLabel("Welcome to the sorting app!");
 		welcomeLabel.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, resize.newFontSize()));
 		welcomeLabel.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		frame.getContentPane().add(welcomeLabel);
 		
+		//buttons
 		resize = new AutoResize (300, 200, 200, 50, 20, 800, 600, frame.getWidth(), frame.getHeight());
 		JButton functionOneButton = new JButton("Sort a text file");
 			functionOneButton.addActionListener(new ActionListener() {
