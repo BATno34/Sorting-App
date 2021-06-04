@@ -1,5 +1,11 @@
 package june_11;
 
+/**
+ * Function 2 of the app, allows the user to visualize various sorting algorithms
+ * @author Ardavan, Shirley, Shreyas
+ * @version June 11 2021
+ */
+
 import java.util.*;
 import java.util.List;
 import java.awt.*;
@@ -15,7 +21,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 public class SortingAlgorithmsFunction extends JFrame {
-	
+	//GUI components
 	private static JLabel lblBars = new JLabel();
 	private static JSlider slider;
 	private static JSlider sliderSpeed;
@@ -28,7 +34,11 @@ public class SortingAlgorithmsFunction extends JFrame {
 	private static JLabel lblColourExplanation;
 	private static JPanel contentPane;
 	private static JFrame frame;
+	private static JButton sortedListButton;
+	private static JButton reverseListButton;
+	private static JButton shuffleListButton;
 	
+	//bars for visualizing
 	public static int numBars = 10;
 	public static int width;
 	public static JLabel[] bars = new JLabel[28];
@@ -36,30 +46,36 @@ public class SortingAlgorithmsFunction extends JFrame {
 	public static int [] barsHeightCopy;
 	
 	public static int sortDelay = 500;
-	private static JButton sortedListButton;
-	private static JButton reverseListButton;
-	private static JButton shuffleListButton;
+	
 	public static AutoResize resize;
 	
+	/**
+	 * generates a new array of bars and draws it on the screen
+	 * @return the new array of JLabels (bars)
+	 */
 	public static JLabel[] drawBars () {
-		if(bars[0] != null) {
+		if(bars[0] != null) { //if there are bars in the array
 			for(int i = 0; i < bars.length; i++)
 				contentPane.remove(bars[i]);
 			
-			contentPane.repaint();
+			contentPane.repaint(); //removes bars from the frame before redrawing
 		}
 		
 		bars = new JLabel [numBars];
 		barsHeight = new int [numBars];
 		barsHeightCopy = new int [numBars];
+		
+		//generate new bar array
 		for (int m = 0; m < numBars; m++) {
 			bars[m] = new JLabel ("");
 			bars[m].setOpaque(true);
 			bars[m].setBackground(Color.ORANGE);
-			int height = (int)(Math.random() * 200) + 20;
+			
+			int height = (int)(Math.random() * 200) + 20; //randomize height of each bar between 20 and 220
 			barsHeight[m] = height;
 			barsHeightCopy[m] = height;
 			resize = new AutoResize((m*(2+width)+(800-(numBars*(width+2)))/2), (400 - height), width, height, 0, 800, 600, contentPane.getWidth(), contentPane.getHeight());
+			
 			bars[m].setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 			contentPane.add(bars[m]);
 		}
@@ -67,38 +83,47 @@ public class SortingAlgorithmsFunction extends JFrame {
 		return bars;
 	}
 	
-	
+	/**
+	 * when a sorting method is underway, redraw the array at each step of sorting
+	 * @param comparingBars, an ArrayList of the indexes of bars that are currently being compared
+	 * @param sortedBars, an ArrayList of the indexes of bars that have already been sorted
+	 */
 	public static void drawSortedBars (ArrayList<Integer> comparingBars, ArrayList<Integer> sortedBars) {
 
 		for(int i = 0; i < bars.length; i++)
-			contentPane.remove(bars[i]);
+			contentPane.remove(bars[i]); //remove bars from frame so that they can be redrawn
 		
 		for (int m = 0; m < numBars; m++) {
 			bars[m] = new JLabel ("");
 			bars[m].setOpaque(true);
-			if (sortedBars.contains(m)) {
+			
+			if (sortedBars.contains(m)) { //already sorted
 				bars[m].setBackground(Color.BLUE);
-			} else if (comparingBars.indexOf(m) != -1){
+			} else if (comparingBars.indexOf(m) != -1){ //being compared
 				bars[m].setBackground(Color.BLACK);
 			} else {
-				bars[m].setBackground(Color.ORANGE);
+				bars[m].setBackground(Color.ORANGE); //all other bars
 			}
 			resize = new AutoResize((m*(2+width)+(800-(numBars*(width+2)))/2), (400 - barsHeight[m]), width, barsHeight[m], 0, 800, 600, contentPane.getWidth(), contentPane.getHeight());
 			bars[m].setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 			contentPane.add(bars[m]);
 		}
 		
-		contentPane.repaint();
+		contentPane.repaint(); //repaint frame
 	}
 
+	/**
+	 * when the sort is complete, set components as visible and repaint all bars as blue
+	 */
 	public static void endOfSort(){
-		for(int i = 0; i<bars.length; i++) {
+		for(int i = 0; i<bars.length; i++) {//recolour bars as blue
 			Container parent = bars[i].getParent();
 			bars[i].setBackground(Color.BLUE);
 			parent.repaint();
 			parent.validate();
 		}
 		
+		//set components on frame as interactable/visible
 		frame.setResizable(true);
 		sortButton.setVisible(true);
 		resize = new AutoResize(10, 11, 507, 26, 0, 800, 600, contentPane.getWidth(), contentPane.getHeight());
@@ -135,6 +160,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 	 * Create the frame.
 	 */
 	public SortingAlgorithmsFunction() {
+		//main frame setup
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
@@ -152,8 +178,11 @@ public class SortingAlgorithmsFunction extends JFrame {
 		contentPane.setLayout(null);
 	}
 	
+	/**
+	 * add components to the frame
+	 */
 	public static void addComponent() {
-		
+		//bars slider
 		slider = new JSlider();
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -171,6 +200,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		slider.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(slider);
 		
+		//label for number of bars
 		resize = new AutoResize (541, 6, 200, 31, 14, 800, 600, contentPane.getWidth(), contentPane.getHeight());
 		lblBars.setFont(new Font("Times New Roman", Font.PLAIN, resize.newFontSize()));
 		lblBars.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
@@ -179,6 +209,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		sortButton = new JButton("Sort");
 		sortButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//set frame components as not visible or not interactable
 				frame.setResizable(false);
 				sortButton.setVisible(false);
 				slider.setBounds(10, 11, 0, 26);
@@ -191,25 +222,26 @@ public class SortingAlgorithmsFunction extends JFrame {
 				sortedListButton.setVisible(false);
 				reverseListButton.setVisible(false);
 				shuffleListButton.setVisible(false);
-								
+				
+				//determine type of sort to be performed
 				Thread sortingThread = new Thread();
-				if (comboBox.getSelectedItem().toString().toUpperCase().equals("BUBBLE SORT")) {
+				if (comboBox.getSelectedItem().toString().toUpperCase().equals("BUBBLE SORT")) { //bubble sort
 					sortingThread = new Thread(new BubbleSort(barsHeight));
 					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Already sorted.");
 				}
-				else if (comboBox.getSelectedItem().toString().toUpperCase().equals("INSERTION SORT")) {
+				else if (comboBox.getSelectedItem().toString().toUpperCase().equals("INSERTION SORT")) { //insertion sort
 					sortingThread = new Thread(new InsertionSort(barsHeight));
 					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Already sorted.");
 				}
-				else if (comboBox.getSelectedItem().toString().toUpperCase().equals("MERGE SORT")) {
+				else if (comboBox.getSelectedItem().toString().toUpperCase().equals("MERGE SORT")) { //merge sort
 					sortingThread = new Thread(new MergeSort(barsHeight));
 					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Already sorted.");
 				}
-				else if (comboBox.getSelectedItem().toString().toUpperCase().equals("SELECTION SORT")) {
+				else if (comboBox.getSelectedItem().toString().toUpperCase().equals("SELECTION SORT")) { //selection sort
 					sortingThread = new Thread(new SelectionSort(barsHeight));
 					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Already sorted.");
 				}
-				else if (comboBox.getSelectedItem().toString().toUpperCase().equals("QUICK SORT")) {
+				else if (comboBox.getSelectedItem().toString().toUpperCase().equals("QUICK SORT")) { //quick sort
 					sortingThread = new Thread(new QuickSort(barsHeight));
 					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Pivot and already sorted.");
 				}
@@ -221,6 +253,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		sortButton.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(sortButton);
 		
+		//return to previous frame 
 		toReturn = new JButton("Return");
 		toReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -234,6 +267,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		toReturn.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(toReturn);
 		
+		//combo box for choosing type of sort
 		comboBox = new JComboBox();
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -247,6 +281,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		comboBox.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(comboBox);
 		
+		// some labels
 		lblChooseSortType = new JLabel();
 		lblChooseSortType.setText("Choose Sort Type:");
 		resize = new AutoResize (541, 46, 200, 31, 14, 800, 600, contentPane.getWidth(), contentPane.getHeight());
@@ -261,6 +296,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		lblSpeed.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(lblSpeed);
 		
+		//slider for choosing sort delay
 		sliderSpeed = new JSlider();
 		sliderSpeed.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -276,6 +312,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		sliderSpeed.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(sliderSpeed);
 		
+		//labels for colour explanations
 		lblColours = new JLabel();
 		lblColours.setText("Colours:");
 		lblColours.setVerticalAlignment(SwingConstants.TOP);
@@ -291,9 +328,10 @@ public class SortingAlgorithmsFunction extends JFrame {
 		lblColourExplanation.setBounds(resize.newX(), resize.newY(), resize.newWidth(), resize.newHeight());
 		contentPane.add(lblColourExplanation);
 		
+		//buttons for changing order of array
 		sortedListButton = new JButton("Show Sorted List");
 		sortedListButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {//sort array
 				Arrays.sort(barsHeight);
 				ArrayList<Integer> emptyList = new ArrayList<Integer>();
 				drawSortedBars(emptyList, emptyList);
@@ -306,7 +344,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		
 		reverseListButton = new JButton("Show Reversed List");
 		reverseListButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {//reverse array
 				Arrays.sort(barsHeight);
 				int[] copyBarsHeight = barsHeight.clone();
 				for (int i = copyBarsHeight.length - 1; i >= 0; i--) {
@@ -324,7 +362,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 		
 		shuffleListButton = new JButton("Show Shuffled List");
 		shuffleListButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) { //shuffle array
 				List<Integer> intList = new ArrayList<Integer>(barsHeight.length);
 				for (int i : barsHeight) {
 				    intList.add(i);
