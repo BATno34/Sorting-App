@@ -1,5 +1,11 @@
 package june_11;
 
+/**
+ * The animation of using merge sort method to sort bars
+ * @author Ardavan, Shirley, Shreyas
+ * @version June 11 2021
+ */
+
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -8,11 +14,17 @@ import javax.swing.JOptionPane;
 public class MergeSort implements Runnable {
 	public static int [] barsHeight;
 	
+	/**
+	 * constructor for a MergeSort object/thread
+	 * @param barsHeight, the array of heights of the bars
+	 */
 	public MergeSort(int[] barsHeight) {
 		this.barsHeight = barsHeight;
 	}
 
-	@Override
+	/**
+	 * override from implementing Runnable
+	 */
 	public void run() {
 		mergeSort(0, barsHeight.length-1);
 	}
