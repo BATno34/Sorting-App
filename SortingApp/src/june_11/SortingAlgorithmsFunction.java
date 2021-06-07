@@ -87,8 +87,22 @@ public class SortingAlgorithmsFunction extends JFrame {
 	 * when a sorting method is underway, redraw the array at each step of sorting
 	 * @param comparingBars, an ArrayList of the indexes of bars that are currently being compared
 	 * @param sortedBars, an ArrayList of the indexes of bars that have already been sorted
+	 * @param pivotBar, an ArrayList of the pivot index (only for quicksort)
 	 */
 	public static void drawSortedBars (ArrayList<Integer> comparingBars, ArrayList<Integer> sortedBars) {
+
+		ArrayList<Integer> emptyList = new ArrayList<Integer>();
+		drawSortedBars(comparingBars, sortedBars, emptyList);
+		
+	}
+	
+	/**
+	 * when a sorting method is underway, redraw the array at each step of sorting
+	 * @param comparingBars, an ArrayList of the indexes of bars that are currently being compared
+	 * @param sortedBars, an ArrayList of the indexes of bars that have already been sorted
+	 * @param pivotBar, an ArrayList of the pivot index (only for quicksort)
+	 */
+	public static void drawSortedBars (ArrayList<Integer> comparingBars, ArrayList<Integer> sortedBars, ArrayList<Integer> pivotBar) {
 
 		for(int i = 0; i < bars.length; i++)
 			contentPane.remove(bars[i]); //remove bars from frame so that they can be redrawn
@@ -97,7 +111,9 @@ public class SortingAlgorithmsFunction extends JFrame {
 			bars[m] = new JLabel ("");
 			bars[m].setOpaque(true);
 			
-			if (sortedBars.contains(m)) { //already sorted
+			if (pivotBar.contains(m)) { //already sorted
+				bars[m].setBackground(Color.GREEN);
+			} else if (sortedBars.contains(m)) { //already sorted
 				bars[m].setBackground(Color.BLUE);
 			} else if (comparingBars.indexOf(m) != -1){ //being compared
 				bars[m].setBackground(Color.BLACK);
@@ -243,7 +259,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 				}
 				else if (comboBox.getSelectedItem().toString().toUpperCase().equals("QUICK SORT")) { //quick sort
 					sortingThread = new Thread(new QuickSort(barsHeight));
-					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Pivot and already sorted.");
+					lblColourExplanation.setText("Yellow: Not sorted. Black: Being compared. Blue: Already sorted. Green: Current pivot.");
 				}
 				sortingThread.start();
 			}

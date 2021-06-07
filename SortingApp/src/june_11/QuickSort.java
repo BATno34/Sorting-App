@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
  */
 public class QuickSort implements Runnable{
 	public static int [] barsHeight;
-	ArrayList<Integer> pivotIndex = new ArrayList<Integer>();
+	ArrayList<Integer> sortedIndex = new ArrayList<Integer>();
 	
 	/** Contructor
 	 * @param barsHeight		The int array that contains the bars' height to sort 
@@ -36,13 +36,12 @@ public class QuickSort implements Runnable{
 	 */
 	private void quickSort(int start, int end) {
 		int temp;
-		ArrayList<Integer> startEndIndexes = new ArrayList<Integer>(2);
 		ArrayList<Integer> swappingIndexes = new ArrayList<Integer>(2);
+		ArrayList<Integer> pivotIndex = new ArrayList<Integer>(1);
 		//Take the middle element as pivot
 		int middle = start + (end - start) / 2;
 		int pivot = barsHeight[middle];
 		pivotIndex.add(middle);
-		
 		//Make the left side all numbers smaller than the pivot
 		//and the right side all numbers larger than the pivot
 		int i = start;
@@ -50,20 +49,20 @@ public class QuickSort implements Runnable{
 		//Display comparison
 		swappingIndexes.add(i);
 		swappingIndexes.add(j);
-		SortingAlgorithmsFunction.drawSortedBars(swappingIndexes, pivotIndex);
+		SortingAlgorithmsFunction.drawSortedBars(swappingIndexes, sortedIndex, pivotIndex);
 		pause();
 		
 		while (i <= j) {
 			while (barsHeight[i] < pivot) {
 				i++;
 				swappingIndexes.set(0, i);
-				SortingAlgorithmsFunction.drawSortedBars(swappingIndexes, pivotIndex);
+				SortingAlgorithmsFunction.drawSortedBars(swappingIndexes, sortedIndex, pivotIndex);
 				pause();
 			}
 			while (barsHeight[j] > pivot) {
 				j--;
 				swappingIndexes.set(1, j);
-				SortingAlgorithmsFunction.drawSortedBars(swappingIndexes, pivotIndex);
+				SortingAlgorithmsFunction.drawSortedBars(swappingIndexes, sortedIndex, pivotIndex);
 				pause();
 			}
 			
@@ -71,10 +70,10 @@ public class QuickSort implements Runnable{
 			//but is smaller than the pivot is swapped with the element 
 			//one the left but larger than the pivot
 			if (i <= j) {
-				if (i == pivotIndex.get(pivotIndex.size()-1)) {
-					pivotIndex.set(pivotIndex.size()-1, j);
+				if (i == pivotIndex.get(0)) {
+					pivotIndex.set(0, j);
 				} else if (j == pivotIndex.get(0)) {
-					pivotIndex.set(pivotIndex.size()-1, i);
+					pivotIndex.set(0, i);
 				}
 				
 				//Display the swapping
@@ -86,7 +85,8 @@ public class QuickSort implements Runnable{
 				i++;
 				j--;
 			}
-			SortingAlgorithmsFunction.drawSortedBars(swappingIndexes, pivotIndex);
+			sortedIndex.add(pivotIndex.get(0));
+			SortingAlgorithmsFunction.drawSortedBars(swappingIndexes, sortedIndex, pivotIndex);
 			pause();
 		}
  
