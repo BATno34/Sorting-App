@@ -36,7 +36,7 @@ public class SortFile {
 	private static ArrayList<String> outputList = new ArrayList<>();
 	private static ArrayList<Double> doubleOutputList = new ArrayList<>();
 	private static ArrayList<Integer> intOutputList = new ArrayList<>();
-	private JLabel fileLabel;
+	private static JLabel fileLabel;
 	private JLabel saveLabel;
 	private static JRadioButton orderRdBtn;
 	private static JRadioButton reverseRdBtn;
@@ -96,7 +96,7 @@ public class SortFile {
 			}
 		});
 		toReturn.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		toReturn.setBounds(550, 550, 100, 50);
+		toReturn.setBounds(550, 571, 100, 29);
 		frame.getContentPane().add(toReturn);
 				
 		
@@ -476,6 +476,7 @@ public class SortFile {
         intOutputList.clear();
         clearSortRdBtns();
 		clearTypeRdBtns();
+		fileLabel.setText("No File Selected");
 	}
 	
 	/**
