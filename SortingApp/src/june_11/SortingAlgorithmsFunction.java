@@ -113,7 +113,7 @@ public class SortingAlgorithmsFunction extends JFrame {
 			
 			if (pivotBar.contains(m)) { //already sorted
 				bars[m].setBackground(Color.GREEN);
-			} else if (comparingBars.indexOf(m) != -1){ //being compared (for insertion)
+			} else if (comparingBars.indexOf(m) != -1){ //being compared
 				bars[m].setBackground(Color.BLACK); 
 			} else if (sortedBars.contains(m)) { //already sorted
 				bars[m].setBackground(Color.BLUE);
